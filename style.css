@@ -1,0 +1,174 @@
+body{
+    height: 1000px;
+    width: 100vw;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    scrollbar-width: none;
+    color: #38598b;
+    font-family: 'Russo One',sans-serif;
+    font-size: 26px;
+    background-image: url("images/background.jpg");
+}
+
+#playedTasks {
+  white-space: pre-line; /* vagy pre */
+}
+
+div::-webkit-scrollbar {
+    width: none;
+    background: transparent;
+}
+
+#fullscreenButton{
+    position: fixed;
+    display: inline-block;
+    z-index: 9999;
+    right: 45px;
+    top: 45px;
+    width: 80px;
+    height: 80px;
+    background-color: #38598b;
+    border-radius: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#alertCorrect{
+    width: 100%;
+    height: 100%;
+    background: springgreen;
+    display: none;
+    justify-items: center;
+    align-items: center;
+    font-size: 124px;
+}
+
+#alertPass{
+    width: 100%;
+    height: 100%;
+    background: red;
+    display: none;
+    justify-items: center;
+    align-items: center;
+    font-size: 124px;
+}
+
+
+
+
+.menuButton{
+    min-width: 35%;
+    height: 280px;
+    margin: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 16px;
+    background: rgba(255, 255, 255, 0.2);
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.menuButtonText{
+    font-size: 48px;
+    font-weight: bold;
+}
+
+
+
+
+
+
+.page{
+    width: 100vw;
+    height: 100vh;
+    margin: 0;
+    padding: 0;
+}
+
+#startPage{
+    display: flex;
+    align-items: center;
+    justify-items: center;
+    flex-direction: column;
+}
+
+#startPageTitle{
+    margin-top: 180px;
+    font-size: 84px;
+}
+
+#startButton{
+    width: 150px;
+    height: 70px;
+    background-color: #38598b;
+    color: #ffffff;
+    border-radius: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#menuPage{
+    display: none;
+    justify-content: space-evenly;
+    flex-direction: row;
+    flex-wrap: wrap;
+    overflow: auto;
+    box-sizing: border-box;
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+
+#gamePage{
+    display: none;
+    align-items: center;
+    justify-items: center;
+    flex-direction: column;
+}
+#backToMenuButton{
+    position: fixed;
+    left: 45px;
+    top: 45px;
+    width: 200px;
+    height: 125px;
+    background-color: #38598b;
+    color: #ffffff;
+    border-radius: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+#countdown{
+    font-size: 42px;
+}
+#task{
+    font-size: 112px;
+    margin-top: 140px;
+}
+
+#endPage{
+    display: none;
+    align-items: center;
+    justify-items: center;
+    flex-direction: column;
+    font-size: 42px;
+}
+
+#newGameButton{
+    position: fixed;
+    left: 45px;
+    top: 45px;
+    width: 200px;
+    height: 125px;
+    background-color: #38598b;
+    color: #ffffff;
+    border-radius: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
