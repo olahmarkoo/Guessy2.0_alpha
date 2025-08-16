@@ -161,7 +161,7 @@ function openGameCloseMenu(topic) {
         document.getElementById("gamma").textContent = event.gamma.toFixed(1);
         let gamma = event.gamma; // -90 .. +90 között
 
-        if (gameOn) {
+        if (gameOn && document.getElementById("gamePage").style.display = "flex";) {
           if (gamma < 60 && gamma > 0) {  // jobbra dől (pl. előre)
             score++;
             itIsACorrect();
