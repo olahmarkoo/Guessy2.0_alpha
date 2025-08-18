@@ -3,12 +3,10 @@ let timer = 123;
 let copy = [];
 let playDeck = [];
 let currentTask = -1;
-
 let audioCountdown = new Audio("sounds/countdown.mp3");
 let audioStart = new Audio("sounds/start.mp3");
 let audioPass = new Audio("sounds/pass.mp3");
 let audioCorrect = new Audio("sounds/correct.mp3");
-
 let score = 0;
 let gameOn = true;
 const playedTasksElement = document.getElementById("playedTasks");
@@ -140,10 +138,9 @@ function toggleFullscreen() {
 //-----------------------------------------------
 
 function openGameCloseMenu(topic) {
-
     score = 0;
-    copy = [...topics[topic]];
-    playDeck = shuffle(copy);
+    //copy = [...topics[topic]];
+    playDeck = shuffle([...topics[topic]]);
     currentTask = -1;
     playStartSound();
     timer = 123;
@@ -151,7 +148,6 @@ function openGameCloseMenu(topic) {
 
     const countdownElement = document.getElementById("countdown");
     countdownElement.textContent = timer;
-
     document.getElementById("menuPage").style.display = "none";
 
     if (interval !== null) {
@@ -167,11 +163,12 @@ function openGameCloseMenu(topic) {
 
     document.getElementById("alertCorrect").style.display = "none";
     document.getElementById("alertPass").style.display = "none";
-
     countdownElement.textContent = timer;
 
       if (timer == 9) {
+        do{
         playCountdownSound();
+        }while(timer <= 9 && timer < 0 && audioCountdown.currentTime == 0);
         }
 
       if (timer <= 0) {
@@ -180,71 +177,48 @@ function openGameCloseMenu(topic) {
     },1000);
 }
 
+if (window.DeviceOrientationEvent) {
+    window.addEventListener("deviceorientation", (event) => {
+    // landscape helyzetben az előre-hátra döntést a gamma adja
+    document.getElementById("gamma").textContent = event.gamma.toFixed(1);
+    let gamma = event.gamma; // -90 .. +90 között
 
-
-
-
-    if (window.DeviceOrientationEvent) {
-      window.addEventListener("deviceorientation", (event) => {
-        // landscape helyzetben az előre-hátra döntést a gamma adja
-        document.getElementById("gamma").textContent = event.gamma.toFixed(1);
-        let gamma = event.gamma; // -90 .. +90 között
-
-        if (gameOn && window.getComputedStyle(document.getElementById("gamePage")).display == "flex") {
-          if (gamma < 45 && gamma > 0) {  // jobbra dől (pl. előre)
+    if (gameOn && window.getComputedStyle(document.getElementById("gamePage")).display == "flex") {
+        if (gamma < 45 && gamma > 0) {  // jobbra dől (pl. előre)
             score++;
             itIsACorrect();
             gameOn = false; // várjuk vissza a középállást
-          } else if (gamma > -45 && gamma < 0) { // balra dől (pl. hátra)
+        } else if (gamma > -45 && gamma < 0) { // balra dől (pl. hátra)
             score--;
             itIsAPass();
            gameOn = false;
-          }
         }
-
-        // ha visszatért középre (kb. egyenesben van), újra engedélyezünk számlálást
-        if (gamma > 75 || gamma < -75) {
-            stopPassSound();
-            stopCorrectSound();
-          gameOn = true;
-        }
-      });
-    } else {
-      alert("A készülék nem támogatja a giroszkópot.");
     }
 
+        // ha visszatért középre (kb. egyenesben van), újra engedélyezünk számlálást
+    if (gamma > 75 || gamma < -75) {
+        stopPassSound();
+        stopCorrectSound();
+        gameOn = true;
+        }
+    });
+} else {
+    alert("A készülék nem támogatja a giroszkópot.");
+    }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-const clubs = [  "Real Madrid","Barcelona","Manchester United","Liverpool","Chelsea","Arsenal",
-  "Manchester City","Bayern München","Borussia Dortmund","Juventus","AC Milan",
-  "Inter Milan","AS Roma","Napoli","PSG","Olympique Marseille","Ajax","Feyenoord",
-  "Porto","Benfica","Sporting","Galatasaray","Fenerbahce","Besiktas","Celtic",
+const clubs = ["Real Madrid","Barcelona","Bilbao","Sevilla","Atlético Madrid","West Ham","Tottenham","Manchester United","Liverpool",
+  "Chelsea","Arsenal","Manchester City","Hoffenheim","Union Berlin","Freiburg","Mainz","Leverkusen","Bayern München","Borussia Dortmund",
+  "Red Bull Salzburg","RB Leipzig","Juventus","AC Milan","Bournemouth","Sunderland","Aston Villa",
+  "Internazionale","AS Roma","Fiorentina","Lazio","Parma","Torino","Napoli","PSG","Olympique Marseille","Ajax","Feyenoord",
+  "Porto","Benfica","Braga","Sporting","Galatasaray","Fenerbahce","Besiktas","Celtic",
   "Rangers","Boca Juniors","River Plate","Flamengo","Santos","Corinthians",
-  "LA Galaxy","New York Red Bulls","Toronto FC","Seattle Sounders","Atlanta United",
-  "Club América","Chivas","Monterrey","Pachuca","Al-Ahli","Al-Hilal","Al-Nassr",
+  "LA Galaxy","Al-Ahli","Al-Hilal","Al-Nassr","Wolverhampton","Bayern München","Borussia Dortmund",
   "Al-Sadd","Zamalek","Al Ahly","Shakhtar Donetsk","Dynamo Kyiv","Spartak Moscow",
-  "CSKA Moscow","Zenit","Red Bull Salzburg","RB Leipzig","PSV Eindhoven",
-  "Anderlecht","Club Brugge","Basel","Young Boys","Rosenborg","Molde",
+  "CSKA Moscow","Zenit","PSV Eindhoven","Everton","Fulham","Newcastle",
+  "Anderlecht","Club Brugge","Basel","Grasshopper","Servette","Young Boys","Rosenborg","Molde",
   "Dinamo Zagreb","Partizan","Crvena Zvezda","Panathinaikos","Olympiakos",
-  "AEK Athens","Shenzhen FC","Guangzhou Evergrande","Beijing Guoan","Sydney FC",
-  "Melbourne Victory","Perth Glory","Kaizer Chiefs","Orlando Pirates","Mamelodi Sundowns",
-  "FC Tokyo","Kawasaki Frontale","Urawa Red Diamonds","Yokohama F. Marinos"];
-
+  "AEK Athens","Betis","Valencia","Getafe","Espanyol","Budapest Honvéd FC","Ferencvárosi TC","MTK","Újpest FC","DVSC","Paksi FC","ETO Fc Győr"];
 //---------------------------------------------------------------------------------------------------
-
 const animals = ["oroszlán","tigris","puma","gepard","jaguár","leopárd","hiéna","farkas","róka","sakál",
     "medve","jegesmedve","panda","koala","víziló","elefánt","zsiráf","orrszarvú","bivaly","szarvas",
     "őz","antilop","gazella","zebra","ló","szamár","teve","láma","alpaka","jak",
@@ -259,39 +233,25 @@ const animals = ["oroszlán","tigris","puma","gepard","jaguár","leopárd","hié
     "kivi","kolibri","szitakötő","méh","darázs","dongó","pillangó","lepke","bogár","szkarabeusz",
     "katicabogár","szarvasbogár","cserebogár","szöcske","tücsök","sáska","hangya","termit","csótány","poloska",
     "pók","tarantula","skorpió","rák","homár","garnélarák","polip","tintahal","medúza","csiga",
-    "kagyló","osztriga","korall","szivacs","földigiliszta","pióca","csigaház","vakond","sün","vidra",
+    "kagyló","osztriga","korall","földigiliszta","pióca","csigaház","vakond","sün","vidra",
     "hód","pézsmapocok","fóka","rozmár","dromedár","kenguru","vombat","erszényes ördög","koati","tatú",
     "pangolin","lajhár","armadillo","tapír","okapi","kudu","nyest","görény","hermelin","menyét",
     "prérifarkas","mosómedve","oposszum","oroszlánfóka","kardszarvú antilop","muskátli antilop","kék bálna","narvál","beluga","csimpánz",
-    "gorilla","orangután","bonobó","makákó","mandrill","pávián","maki","gyűrűsfarkú maki","gibbon","siamang"];
-
+    "gorilla","orangután","bonobó","makákó","mandrill","pávián","gyűrűsfarkú maki","gibbon","siamang"];
 //---------------------------------------------------------------------------------------------------
-
-const f1 = ["Lewis Hamilton","Michael Schumacher","Ayrton Senna","Alain Prost","Sebastian Vettel",
-  "Fernando Alonso","Max Verstappen","Niki Lauda","Jackie Stewart","Nelson Piquet",
-  "Jim Clark","Juan Manuel Fangio","Emerson Fittipaldi","Mika Hakkinen","Kimi Raikkonen",
-  "Nigel Mansell","Jenson Button","Damon Hill","Jacques Villeneuve","Mario Andretti",
-  "Jochen Rindt","James Hunt","Clay Regazzoni","Riccardo Patrese","Gerhard Berger",
-  "Rubens Barrichello","Felipe Massa","Sergio Perez","Charles Leclerc","Carlos Sainz",
-  "Daniel Ricciardo","Valtteri Bottas","George Russell","Lando Norris","Esteban Ocon",
-  "Pierre Gasly","Yuki Tsunoda","Oscar Piastri","Zhou Guanyu","Kevin Magnussen",
-  "Nico Hulkenberg","Ralf Schumacher","Jarno Trulli","Heinz-Harald Frentzen",
-  "David Coulthard","Mark Webber","Pastor Maldonado","Jean Alesi","Eddie Irvine",
-  "Giancarlo Fisichella","Nick Heidfeld","Takuma Sato","Kamui Kobayashi","Robert Kubica",
-  "Alex Zanardi","Andrea de Cesaris","Carlos Reutemann","Patrick Tambay","Gilles Villeneuve",
-  "Didier Pironi","Johnny Herbert","Martin Brundle","Anthony Davidson","Paul di Resta",
-  "Stirling Moss","Jack Brabham","Phil Hill","Dan Gurney","John Surtees","Mike Hawthorn",
-  "Graham Hill","Peter Revson","Ronnie Peterson","Tom Pryce","Alan Jones",
-  "Circuit de Monaco","Monza","Silverstone","Spa-Francorchamps","Suzuka",
-  "Hungaroring","Imola","Nürburgring","Hockenheim","Red Bull Ring",
-  "Yas Marina","Bahrain International Circuit","Singapore Marina Bay","Austin COTA",
-  "Mexico City Autodrome","Interlagos","Jeddah Street Circuit","Las Vegas GP",
-  "Ferrari","Mercedes","McLaren","Red Bull Racing","Williams","Lotus",
-  "Brabham","Tyrrell","Ligier","Jordan","Sauber","Toro Rosso","Alfa Romeo Racing",
-  "Renault","Benetton","Haas F1","Force India","Arrows","Minardi"];
-
+const f1 = [
+  "Lewis Hamilton","Michael Schumacher","Ayrton Senna","Alain Prost","Sebastian Vettel",
+  "Fernando Alonso","Max Verstappen","Niki Lauda","Jackie Stewart","Juan Manuel Fangio",
+  "Jim Clark","Kimi Raikkonen","Nigel Mansell",
+  "Charles Leclerc","Carlos Sainz","Lando Norris","George Russell","Sergio Perez",
+  "Circuit de Monaco","Monza","Silverstone","Suzuka","Hungaroring","Imola",
+  "Ferrari","Mercedes","McLaren","Red Bull Racing","Williams","Lotus","Renault",
+  "Pole pozíció","Boxkiállás","Safety Car","Virtual Safety Car","Sárga zászló","Piros zászló",
+  "DRS","Intermediate gumi","Esőgumi","Száraz gumi (slick)","Rajtrács",
+  "Gyors kör","Év újonca","Világbajnoki pont","Dobogó",
+  "Kockás zászló","Team orders","Undercut","Overcut",
+  "Pezsgős locsolás","Csapatrádió","Kiállási stratégia"];
 //---------------------------------------------------------------------------------------------------
-
 const cars = ["Audi","BMW","Mercedes-Benz","Volkswagen","Porsche","Opel","Ford","Chevrolet",
   "Cadillac","Dodge","Chrysler","Jeep","Tesla","Rivian","Lucid","Toyota","Honda",
   "Nissan","Mazda","Mitsubishi","Subaru","Suzuki","Hyundai","Kia","Daewoo","Genesis",
@@ -304,25 +264,21 @@ const cars = ["Audi","BMW","Mercedes-Benz","Volkswagen","Porsche","Opel","Ford",
   "Pontiac","Oldsmobile","Saturn","Hummer","Plymouth","Studebaker","DeLorean",
   "AMC","Packard","Moszkvics","Lada","Trabant","Wartburg","Zastava","Tatra","UAZ",
   "GAZ","KAMAZ","ZIL","Daihatsu","Scion","Holden","HSV","Vauxhall"];
-
 //---------------------------------------------------------------------------------------------------
-//NEM JÓ
-const dogs = ["labrador","golden retriever","német juhász","beagle","bulldog","mopsz","jack russell","cocker spániel",
-    "uszkár","rottweiler","doberman","shih tzu","szamojéd","husky","dalmatiner","border collie",
-    "malamut","terrier","boxer","vizsla","magyar agár","komondor","puli","pumi","mudi","kuvasz",
-    "bichon frisé","cairn terrier","west highland white terrier","chihuahua","dachshund","french bulldog"];
-
-//---------------------------------------------------------------------------------------------------
-
 const locals = ["Puskás Ferenc","Hajós Alfréd","Gesztesi Károly","Kulka János","Örkény István","Márai Sándor",
-    "Radnóti Miklós","Ady Endre","Karinthy Frigyes","József Attila","Bartók Béla","Kodály Zoltán",
-    "Erkel Ferenc","Liszt Ferenc","Zoltán Kocsis","Müller Péter","Hofi Géza","Rúzsa Magdi",
-    "Korda György","Ákos","Péterfy Bori","Gáspár Laci","ByeAlex","Ganxsta Zolee","Majka",
-    "Király Viktor","Radics Gigi","Berki Krisztián","Fekete Pákó","Samu Balázs","Korda György Jr.",
-    "Tóth Gabi","Vastag Csaba","Hien","Rúzsa Magdi","Mészáros Árpád Zsolt","Kapitány Iván"];
-
+  "Radnóti Miklós","Ady Endre","Karinthy Frigyes","József Attila","Bartók Béla","Kodály Zoltán",
+  "Erkel Ferenc","Liszt Ferenc","Zoltán Kocsis","Müller Péter","Hofi Géza","Rúzsa Magdi",
+  "Korda György","Ákos","Péterfy Bori","Gáspár Laci","ByeAlex","Ganxsta Zolee","Majka",
+  "Király Viktor","Radics Gigi","Berki Krisztián","Fekete Pákó","Samu Balázs","Korda György Jr.",
+  "Tóth Gabi","Vastag Csaba","Hien","Rúzsa Magdi","Mészáros Árpád Zsolt","Kapitány Iván",
+  "Kasza Tibi","Sebestyén Balázs","Vad Katalin","Till Attila","Stohl András",
+  "Fluor Tomi","Lotfi Begi","Curtis","Puzsér Róbert","Dancsó Péter",
+  "Istenes Bence","Lakatos Márk","Cooky","Rákóczi Ferenc","Pachmann Péter",
+  "Varga Viktor","Caramel","Dér Heni","Csonka András","Sas József",
+  "Kiss Ádám","Bödőcs Tibor","Aranyosi Péter","Kovács András Péter (KAP)","Fábry Sándor",
+  "Pataki Ági","Liptai Claudia","Ördög Nóra","Gáspár Győző","Gáspár Evelin",
+  "Hajdú Péter","Nacsa Olivér","Till Atilla"];
 //---------------------------------------------------------------------------------------------------
-
 const items = ["asztal","szék","ágy","kanapé","lámpa","polc","szekrény","fiók","ajtó","ablak",
     "tükör","szőnyeg","függöny","kép","óra","lábtörlő","parfüm","cipő","kalap","sál",
     "kesztyű","öv","táska","hátizsák","konyhai kés","villa","kanál","tányér","pohár","bögre",
@@ -340,72 +296,65 @@ const items = ["asztal","szék","ágy","kanapé","lámpa","polc","szekrény","fi
     "vaj","sajt","felvágott","kenyér","zsemle","keksz","csokoládé","cukorka","gyümölcs","alma",
     "banán","narancs","körte","eper","málna","szeder","ribizli","dinnye","sárgadinnye","görögdinnye",
     "sajtreszelő","konyharuha","szivacs","mosogatószer","konyhai mérleg","fakanál","tányéralátét","edényfedő","gyümölcsprés","tortaszeletelő"];
-
 //---------------------------------------------------------------------------------------------------
-
-const heroes = ["Superman","Batman","Wonder Woman","Flash","Zöld Lámpás","Acélember","Vasember","Hulk",
-    "Thor","Fekete Özvegy","Hawkeye","Doktor Strange","Pókember","Kapcsolat nélküli Pókember",
-    "Ant-Man","Hangya","Fekete Párduc","Captain America","Amerika Kapitány","Deadpool",
-    "Wolverine","X-Men","Professor X","Magneto","Jean Grey","Cyclops","Storm","Beast",
-    "Rogue","Gambit","Green Arrow","Shazam","Aquaman","Black Canary","Cyborg","Supergirl",
-    "Batgirl","Robin","Nightwing","Catwoman","Harley Quinn","Joker","Lex Luthor","Loki",
-    "Thanos","Galactus","Venom","Doctor Octopus","Sandman","Green Goblin","Mysterio","Kingpin",
-    "Daredevil","Punisher","Silver Surfer","Deadshot","Arrow","Hawkgirl","Hawkman","Black Adam",
-    "Shocker","Electro","Kraven","Vulture","Rhino","Scorpion","Taskmaster","Black Manta","Ultron",
-    "Winter Soldier","Falcon","Vision","Scarlet Witch","Quicksilver","Star-Lord","Groot",
-    "Rocket Raccoon","Gamora","Drax","Nebula","Mantis","Doctor Doom","Red Skull","Iron Fist",
-    "Luke Cage","Jessica Jones","Moon Knight","She-Hulk","Mystique","Iceman","Nightcrawler",
-    "Colossus","Beast Boy","Raven","Starfire","Cyborg (Teen Titans)","Terra","Aqualad","Speedy",
-    "Kid Flash","Red Tornado","Hawkman (CW)","Vixen","Black Lightning","Blue Beetle","Booster Gold",
-    "Firestorm","Plastic Man","Atom","Captain Marvel","Shazam","Black Adam"
-];
-
+const heroes = ["Superman","Batman","Csodanő","Villám","Zöld Lámpás","Acélember",
+  "Zöld Íjász","Shazam","Aquaman","Fekete Kanári","Cyborg","Supergirl",
+  "Batgirl","Robin","Éjjeliőr","Macskanő","Harley Quinn","Joker","Lex Luthor",
+  "Halálcsapás","Fekete Villám","Kék Bogár","Booster Gold","Tűzvihar","Műanyag Ember","Atom",
+  "Vasember","Hulk","Thor","Fekete Özvegy","Sólyomszem","Doktor Strange",
+  "Pókember","Hangya","Fekete Párduc","Amerika Kapitány","Deadpool",
+  "Rozsomák","Professor X","Magneto","Jean Grey","Ciklon","Küklopsz","Bestia",
+  "Vadóc","Kártyás","Vízió","Skarlát Boszorkány","Higanyszál","Tél Katonája",
+  "Sólyom","Csillagúr","Groot","Rakéta Mosómedve","Gamora","Drax","Nebula","Mantis",
+  "Thanos","Loki","Galactus","Venom","Doktor Octopus","Homokember","Zöld Manó","Mysterio","Kingpin",
+  "Fenegyerek","Megtorló","Ezüst Utazó","Ultron","Doctor Doom","Vörös Koponya","Holdlovag","She-Hulk",
+  "Mystique","Jégember","Éjjáró","Colossus",];
 //---------------------------------------------------------------------------------------------------
-
-const cities = [  "Budapest","Debrecen","Szeged","Pécs","Győr","Miskolc","Nyíregyháza","Kecskemét",
+const cities = ["Budapest","Debrecen","Szeged","Pécs","Győr","Miskolc","Nyíregyháza","Kecskemét",
   "Sopron","Szombathely","Veszprém","Eger","Esztergom","Kaposvár","Zalaegerszeg",
   "Székesfehérvár","London","Manchester","Liverpool","Birmingham","Edinburgh",
-  "Dublin","Belfast","Cardiff","Paris","Marseille","Lyon","Toulouse","Nice","Bordeaux",
-  "Berlin","Munich","Hamburg","Frankfurt","Cologne","Stuttgart","Düsseldorf",
-  "Rome","Milan","Naples","Florence","Venice","Turin","Palermo","Pisa","Bologna",
-  "Madrid","Barcelona","Seville","Valencia","Bilbao","Granada","Lisbon","Porto",
-  "Athens","Thessaloniki","Istanbul","Ankara","Cappadocia","Moscow","Saint Petersburg",
-  "Warsaw","Krakow","Gdansk","Wroclaw","Prague","Brno","Vienna","Salzburg","Zurich",
-  "Geneva","Bern","Stockholm","Gothenburg","Oslo","Bergen","Copenhagen","Aarhus",
-  "Helsinki","Tallinn","Riga","Vilnius","Brussels","Antwerp","Amsterdam","Rotterdam",
-  "The Hague","Luxembourg","New York","Los Angeles","Chicago","San Francisco","Miami",
+  "Dublin","Belfast","Cardiff","Párizs","Marseille","Lyon","Toulouse","Nizza","Bordeaux",
+  "Berlin","München","Hamburg","Frankfurt","Köln","Stuttgart","Düsseldorf",
+  "Róma","Milánó","Nápoly","Firenze","Velence","Torino","Palermo","Pisa","Bologna",
+  "Madrid","Barcelona","Sevilla","Valencia","Bilbao","Granada","Lisszabon","Porto",
+  "Athén","Thesszaloniki","Isztambul","Ankara","Kappadókia","Moszkva","Szentpétervár",
+  "Varsó","Krakkó","Gdańsk","Wrocław","Prága","Brno","Bécs","Salzburg","Zürich",
+  "Genf","Bern","Stockholm","Göteborg","Oslo","Bergen","Koppenhága","Aarhus",
+  "Helsinki","Tallinn","Riga","Vilnius","Brüsszel","Antwerpen","Amszterdam","Rotterdam",
+  "Hága","Luxembourg","New York","Los Angeles","Chicago","San Francisco","Miami",
   "Washington D.C.","Las Vegas","Boston","Philadelphia","Seattle","San Diego","Houston",
-  "Dallas","Toronto","Vancouver","Montreal","Ottawa","Mexico City","Cancun","Rio de Janeiro",
-  "São Paulo","Buenos Aires","Lima","Bogota","Caracas","Havana","Santiago","Cape Town",
-  "Johannesburg","Cairo","Marrakesh","Casablanca","Nairobi","Dar es Salaam",
-  "Tokyo","Osaka","Kyoto","Nagoya","Yokohama","Seoul","Busan","Beijing","Shanghai",
-  "Hong Kong","Shenzhen","Singapore","Kuala Lumpur","Bangkok","Jakarta","Manila",
+  "Dallas","Toronto","Vancouver","Montreál","Ottawa","Mexikóváros","Cancún","Rio de Janeiro",
+  "São Paulo","Buenos Aires","Lima","Bogotá","Caracas","Havanna","Santiago","Fokváros",
+  "Johannesburg","Kairó","Marrákes","Casablanca","Nairobi","Dar es Salaam",
+  "Tokió","Osaka","Kiotó","Nagoja","Jokohama","Szöul","Busan","Peking","Sanghaj",
+  "Hongkong","Sencsen","Szingapúr","Kuala Lumpur","Bangkok","Jakarta","Manila",
   "Sydney","Melbourne","Perth","Brisbane","Auckland","Wellington","Delhi","Mumbai",
-  "Bangalore","Chennai","Karachi","Islamabad","Dubai","Abu Dhabi","Doha","Riyadh",
-  "Tehran","Jerusalem","Amman","Baghdad"];
-
+  "Bangalore","Csennai","Karacsi","Iszlámábád","Dubaj","Abu-Dzabi","Doha","Rijád",
+  "Teherán","Jeruzsálem","Amman","Bagdad"];
 //---------------------------------------------------------------------------------------------------
-
-const series = ["Trónok harca","Breaking Bad","Better Call Saul","The Walking Dead","Stranger Things",
-    "The Witcher","Westworld","The Mandalorian","Vikingek","Dexter","Sherlock","House",
-    "Lost","Friends","How I Met Your Mother","The Big Bang Theory","Grey's Anatomy",
-    "NCIS","The Simpsons","Family Guy","South Park","Rick és Morty","Arrow","The Flash",
-    "Supergirl","Gotham","Titans","Doom Patrol","Smallville","Buffy, a vámpírok réme",
-    "Charmed","Született feleségek","Desperate Housewives","Gilmore Girls","The Crown",
-    "Mindhunter","Narcos","Breaking Bad: El Camino","Better Call Saul","Peaky Blinders",
-    "Fargo","True Detective","Money Heist","La Casa de Papel","The Boys","The Umbrella Academy",
-    "The Expanse","Star Trek","Star Trek: Discovery","Star Trek: Picard","Star Trek: Strange New Worlds",
-    "Stargate","Stargate Atlantis","Stargate Universe","Battlestar Galactica","Lost in Space",
-    "House of Cards","13 Reasons Why","The OA","Sense8","Stranger Things","Dark","The 100",
-    "Prison Break","Sons of Anarchy","Vikings: Valhalla","The Last Kingdom","Peaky Blinders",
-    "The Handmaid's Tale","Westworld","Fargo","Chernobyl","Band of Brothers","The Pacific",
-    "The Sopranos","Mad Men","Boardwalk Empire","The Wire","Ozark","Breaking Bad","Better Call Saul",
-    "True Blood","The Vampire Diaries","Supernatural","Teen Wolf","Riverdale","Lucifer",
-    "Shadow and Bone","Bridgerton","The Queen's Gambit","Emily in Paris","The Mandalorian",
-    "Andor","Obi-Wan Kenobi","Loki","WandaVision","Hawkeye","Moon Knight","Ms. Marvel","She-Hulk"];
-
+const series = ["Trónok harca","A Vaják (The Witcher)","A mandalóri","Vikingek",
+  "Az utolsó királyság","Sötétség (Dark)","Az Esernyő Akadémia","Az űr (The Expanse)",
+  "Csillagkapu","Csillagközi romboló",
+  "Elveszve az űrben","Stranger Things","Árnyék és csont",
+  "Andor","Obi-Wan Kenobi","Loki","WandaVízió","Sólyomszem","Holdlovag","Miss Marvel","She-Hulk",
+  "Breaking Bad","Better Call Saul","Peaky Blinders","Fargo","A törvény emberei",
+  "La Casa de Papel","The Boys","Mindhunter",
+  "Narcos","A kártyavár (House of Cards)","13 okom volt",
+  "Az OA","A nyolc érzék","A 100","Szökés","Kemény motorosok",
+  "A szolgálólány meséje","Csernobil","Elit alakulat","A Csendes-óceán","Maffiózók",
+  "Mad Men – Reklámőrültek","Gengszterkorzó","Drót (The Wire)","Ozark",
+  "Inni és élni hagyni","Dexter","Sherlock","Doktor House","Westworld",
+  "Jóbarátok","Így jártam anyátokkal","Agymenők","Grace klinika","A Simpson család",
+  "Family Guy","South Park","Rick és Morty","Bűbájos boszorkák","Született feleségek",
+  "Szívek szállodája","Bridgerton","A vezércsel","Emily Párizsban","Gossip Girl",
+  "Hazug csajok társasága","Szex és New York","Szexoktatás",
+  "Orange Is the New Black","Eufória","Hatalmas kis hazugságok",
+  "You – Te","Wednesday","Az ifjú ügyvédnő",
+  "Dawson és a haverok",
+  "Zöld íjász","A Villám","Supergirl","Gotham","Titánok","Doom Patrol",
+  "Smallville","Buffy, a vámpírok réme","Lucifer","Odaát","Teen Wolf",
+  "Riverdale","Vámpírnaplók"];
 //---------------------------------------------------------------------------------------------------
-
 const games = [  "Super Mario","Sonic the Hedgehog","Tetris","Pac-Man","Space Invaders","Pong",
   "Donkey Kong","Street Fighter","Mortal Kombat","Tekken","The Legend of Zelda",
   "Metin2","World of Warcraft","Diablo","Starcraft","Counter-Strike","Half-Life",
@@ -417,19 +366,39 @@ const games = [  "Super Mario","Sonic the Hedgehog","Tetris","Pac-Man","Space In
   "Metroid","Castlevania","Dark Souls","Demon’s Souls","Bloodborne","Elden Ring",
   "Sekiro","Monster Hunter","Persona","Shin Megami Tensei","Yakuza","Nioh",
   "Banjo-Kazooie","Crash Bandicoot","Spyro","Rayman","Halo","Gears of War"];
-
 //---------------------------------------------------------------------------------------------------
-//NEM JÓ
-const beauty = ["arckrém","testápoló","sampon","balzsam","dezodor","parfüm","arcpakolás","smink","rúzs","szempillaspirál",
-    "szemhéjpúder","körömlakk","körömreszelő","arcmaszk","bőrradír","fogkrém","fogkefe","hajkefe","fésű","hajlakk",
-    "hajformázó","sunscreen","arcmasszázs","szérum","hajolaj","testvaj","arcvíz","tonik","szemránckrém","hidratáló krém"];
-
+const beauty = ["arckrém","testápoló","sampon","balzsam","dezodor","parfüm","arcpakolás","smink",
+  "rúzs","szempillaspirál","szemhéjpúder","körömlakk","körömreszelő","arcmaszk","bőrradír",
+  "fogkrém","fogkefe","hajkefe","fésű","hajlakk","hajformázó","naptej","arcmasszázs","szérum",
+  "hajolaj","testvaj","arcvíz","tonik","szemránckrém","hidratáló krém",
+  "manikűr","pedikűr","műköröm","szempilla hosszabbítás","szemöldök szedés","gyantázás",
+  "arckezelés","fodrász","kozmetikus","sminktetoválás","borotválás","selfie előtti smink",
+  "estélyi ruha","koktélruha","kis fekete ruha","szoknya","blúz","top","farmer",
+  "kabát","zakó","öltöny","ing","póló","pulóver","ruha",
+  "magassarkú","sportcipő","csizma","szandál","táska","retikül","öv","sál",
+  "kalap","sapka","napszemüveg","nyaklánc","fülbevaló","gyűrű","karkötő","óra"];
 //---------------------------------------------------------------------------------------------------
-//NEM JÓ
-const movies = ["kutya1","kutya2","kutya3"];
-
+const movies = [  // Akció
+  "Die Hard – Drágán add az életed", "Halálos iramban", "John Wick", 
+  "Terminátor 2 – Az ítélet napja", "Predátor", "A sötét lovag", "Mad Max – A harag útja",
+  "Indiana Jones és az elveszett frigyláda fosztogatói", "Karib-tenger kalózai", 
+  "Jurassic Park", "Avatar", "Csillagok háborúja – Új remény", 
+  "Bosszúállók: Végjáték", "A gyűrűk ura: A Gyűrű Szövetsége",
+  "Másnaposok", "Amerikai pite", "Nagyon nagy Ő", "Ace Ventura – Állati nyomozó", 
+  "Reszkessetek, betörők!", "Nagyfater elszabadul", "Hogyan veszítsünk el egy pasit 10 nap alatt",
+  "Titanic", "Szerelmünk lapjai", "Bridget Jones naplója", 
+  "Igazából szerelem", "Pretty Woman – Micsoda nő!", "La La Land",
+  "Forrest Gump", "Remény rabjai", "A zöld mérföld", "Schindler listája", 
+  "Kramer kontra Kramer", "Egy csodálatos elme", "A nyolcadik utas: a Halál",
+  "Ben Hur", "Gladiátor", "A király beszéde", "12 év rabszolgaság", 
+  "Get Out – Tűnj el!", "Mindenhol, mindenkor, mindenki",
+  "Casablanca", "Elfújta a szél", "Aranypolgár", "A Keresztapa", "Taxisofőr", 
+  "Apokalipszis most", "Volt egyszer egy vadnyugat",
+  "Hetedik", "Harcosok klubja", "Eredet", "Interstellar – Csillagok között",
+  "Fekete hattyú", "Shutter Island – Viharsziget", "A bárányok hallgatnak",
+  "Ragyogás", "A kör", "Az – It", "Halloween – A rémület éjszakája",
+  "Széttörve", "Fűrész", "Paranormal Activity", "Szellemekkel suttogó"];
 //---------------------------------------------------------------------------------------------------
-
 const stars = ["Michael Jackson","Madonna","Elvis Presley","Prince","Whitney Houston","Frank Sinatra",
     "Marilyn Monroe","Audrey Hepburn","Brad Pitt","Angelina Jolie","Tom Cruise","Leonardo DiCaprio",
     "Johnny Depp","Robert Downey Jr.","Chris Hemsworth","Scarlett Johansson","Jennifer Aniston",
@@ -440,9 +409,7 @@ const stars = ["Michael Jackson","Madonna","Elvis Presley","Prince","Whitney Hou
     "Rupert Grint","Tom Hanks","Harrison Ford","Chris Evans","Gal Gadot","Henry Cavill","Ben Affleck",
     "Robert Pattinson","Kristen Stewart","Emma Stone","Ryan Gosling","Meryl Streep","Cate Blanchett",
     "Nicole Kidman","Hugh Jackman","Anne Hathaway","Keanu Reeves","Matt Damon","George Clooney"];
-
 //---------------------------------------------------------------------------------------------------
-
 const countries = ["Magyarország","Szlovákia","Románia","Ukrajna","Szerbia","Horvátország","Szlovénia","Ausztria",
   "Németország","Franciaország","Olaszország","Spanyolország","Portugália","Görögország",
   "Lengyelország","Csehország","Szlovákia","Litvánia","Lettország","Észtország","Finnország",
@@ -459,9 +426,7 @@ const countries = ["Magyarország","Szlovákia","Románia","Ukrajna","Szerbia","
   "Nigéria","Ghána","Kenya","Tanzánia","Uganda","Zimbabwe","Zambia","Mozambik",
   "Botswana","Namíbia","Mali","Szenegál","Kamerun","Kongó","Csád","Sudán",
   "Oroszország","Kazahsztán","Üzbegisztán","Türkmenisztán","Kirgizisztán","Tádzsikisztán"];
-
 //---------------------------------------------------------------------------------------------------
-
 const fairytails = ["Hófehérke és a hét törpe","Hamupipőke","Csipkerózsika","A kis hableány","A szépség és a szörnyeteg",
     "Piroska és a farkas","Béka királyfi","Aladdin és a csodalámpa","Ali baba és a negyven rabló","Szindbád",
     "Rút kiskacsa","Borsószem királykisasszony","Csizmás kandúr","Rapunzel","Aranyhaj és a nagy gubanc",
@@ -481,89 +446,90 @@ const fairytails = ["Hófehérke és a hét törpe","Hamupipőke","Csipkerózsik
     "Hupikék törpikék és a falu titka","Garfield","Scooby-Doo","Flintstone család","Jetson család",
     "SpongyaBob","Ben 10","Danny, a szellemirtó","Avatar: Aang legendája","Korra legendája",
     "Dragon Ball","Dragon Ball Z","Sailor Moon","Pokémon","Digimon",
-    "Yu-Gi-Oh!","Bakugan","Naruto","One Piece","Fairy Tail",
-    "Bogyó és Babóca","Boribon","Kippkopp","Manó Benedek","Rumcájsz",
-    "Sebaj Tóbiás","Kukori és Kotkoda","Kérem a következőt! (Doktor Bubó)","Tévémaci","Cirmos cica haj",
-    "A három pillangó","A kóró és a kismadár","A kismalac és a farkasok","Az aranyszőrű bárány","A szegény ember szőlője",
-    "A rest macska","A kerek kő","Az égig érő fa","Kacor király","Világszép Nádszálkisasszony",
-    "Tündérszép Ilona","Fehérlófia","Kőmorzsoló","Kőműves Kelemen","Mátyás király meséi",
-    "Égig érő paszuly","A favágó és a vízitündér","A háromágú tölgyfa tündére","A székely és az ördög","Szegény legény szerencséje",
-    "A csillagszemű juhász","A halász és az aranyhal","Holle anyó","A vasfüggönyös ház","Az okos lány",
-    "Az aranyhalacska","Az aranymadár","A hűséges juhász","A varázsló inasa","A sárkányölő királyfi",
-    "A fekete bika","A fehérló","Az aranyszőrű paripa","Táltos paripa","A világ legszegényebb embere",
-    "A rózsaszál","A rézfaszú bagoly (népmesei tréfás változat, poén)","A három kívánság","A két bors ökröcske","A hét holló",
-    "Az égig érő fa","A kígyókirály","A kőleves másképp","A muzsikus kecskebéka","A világszép lány",
-    "A vad hattyúk","A kis gyufaárus lány","A hókirálynő","Az ólomkatona","A piros cipellők",
-    "A császár új ruhája","A rendíthetetlen ólomkatona","Az aranygolyó","A hableány története","A három királyfi"];
-
+    "Yu-Gi-Oh!","Bakugan","Naruto","One Piece","Fairy Tail","Bogyó és Babóca",
+    "Kérem a következőt! (Doktor Bubó)","Tévémaci","Kőműves Kelemen","Mátyás király meséi",
+    "Égig érő paszuly"];
 //---------------------------------------------------------------------------------------------------
-//NEM JÓ
 const brands = ["McDonald's","Starbucks","Nike","Adidas","Puma","Reebok","Rolex","Apple","Microsoft","Intel",
     "Samsung","Sony","Netflix","Amazon","Google","Facebook","Twitter","Coca-Cola","Pepsi","Red Bull",
-    "Lego","Ikea","Toyota","BMW","Mercedes-Benz","Volkswagen","Audi","Ferrari","Lamborghini","Chanel",
-    "Gucci","Prada","Louis Vuitton","Hermès","Zara","H&M","Uniqlo","Levi's","Canon","Nikon"];
-
+    "Lego","Ikea","Chanel","Gucci","Prada","Louis Vuitton","Hermès","Zara","H&M","Uniqlo","Levi's",
+    "Canon","Nikon","Nestlé","Kellogg's","Oreo","Milka","Lindt","Heineken","Budweiser","Jack Daniel's",
+    "Absolut","Guinness","Lipton","Nescafé","Monster Energy","Sprite","Fanta","Evian","San Pellegrino",
+    "Apple Music","Spotify","Disney","Pixar","Warner Bros","Universal","Paramount","PlayStation","Xbox",
+    "Nintendo","Dell","HP","Lenovo","Asus","Acer","Tesla","Boeing","Airbus","Emirates","Qatar Airways",
+    "Lufthansa","British Airways","Delta Airlines","American Airlines","Hilton","Marriott","Airbnb","Booking.com",
+    "Uber","Lyft","Visa","Mastercard","PayPal","Adidas Originals","Converse","Vans","North Face","Patagonia",
+    "Under Armour","Estee Lauder","L’Oréal","Dior","Maybelline","MAC","Sephora","Garnier","Colgate","Oral-B",
+    "Gillette","Philips","Bosch","Whirlpool","Dyson","GoPro","Tiffany & Co.","Cartier","Swarovski"];
 //---------------------------------------------------------------------------------------------------
-
 const greatplaces = ["Eiffel-torony","Louvre","Notre-Dame","Mont Saint-Michel","Versailles","Sacré-Cœur",
     "Colosseum","Római Fórum","Pantheon","Trevi-kút","Pisa tornya","Vatikán","Szent Péter-bazilika",
     "Sistine Chapel","St. Mark’s Basilica","Dózse-palota","Akropolisz","Parthenon","Delphi",
-    "Szfinx","Piramisok","Luxor templom","Karnak templom","Valley of the Kings","Stonehenge",
-    "Big Ben","Tower of London","Buckingham Palace","London Eye","Westminster Abbey",
+    "Szfinx","Piramisok","Luxor templom","Karnak templom","Királyok völgye","Stonehenge",
+    "Big Ben","Londoni tower","Buckingham Palace","London Eye","Westminster Abbey",
     "Tower Bridge","Cambridge","Oxford","Edinburgh Castle","Loch Ness","Neuschwanstein kastély",
     "Brandenburgi kapu","Berlin fal maradványai","Reichstag","Sagrada Familia","Park Güell",
     "Casa Batlló","La Pedrera","Alhambra","Mezquita","Prága óváros","Károly híd",
     "Hradčany","Wawel","Krakkói óváros","Bécsi Stephansdom","Hofburg","Schönbrunn palota",
     "Melk apátság","Salzburg vár","Hallstatt","Luzerni híd","Bern óváros","Genfi-tó",
-    "Niagara-vízesés","Grand Canyon","Yellowstone","Yosemite","Mount Rushmore","Statue of Liberty",
-    "Times Square","Central Park","Hollywood","Disneyland","Universal Studios","Golden Gate híd",
+    "Niagara-vízesés","Grand Canyon","Yellowstone","Yosemite","Mount Rushmore","Szabadság szobor",
+    "Times Square","Central Park","Hollywood","Brooklyn híd","Disneyland","Universal Studios","Golden Gate híd",
     "Las Vegas Strip","Empire State Building","Burj Khalifa","Sheikh Zayed mecset","Petra",
-    "Jeruzsálem óváros","Machu Picchu","Christ the Redeemer","Copacabana","Iguazú-vízesés",
-    "Pantanal","Salar de Uyuni","Galápagos-szigetek","Victoria-vízesés","Table Mountain",
-    "Robben-sziget","Kiyomizu-dera","Fushimi Inari-taisha","Kinkaku-ji","Himeji kastély",
-    "Tokyo torony","Shibuya Crossing","Sydney Opera House","Harbour Bridge","Great Barrier Reef",
+    "Jeruzsálem óváros","Machu Picchu","Megváltó Krisztus","Copacabana","Iguazú-vízesés",
+    "Galápagos-szigetek","Victoria-vízesés","Himeji kastély",
+    "Tokyo torony","Shibuya Kereszteződés","Sydney Operaház","Harbour híd",
     "Uluru","Ayers Rock","Rotorua geotermikus terület","Wellington Parlament","Auckland Sky Tower",
     "Hanoi óváros","Ha Long-öböl","Angkor Wat","Bayon templom","Ta Prohm","Borobudur",
-    "Prambanan","Mount Fuji","Kiyosumi kert","Osaka vár","Gyeongbokgung","Changdeokgung",
-    "Seoraksan Nemzeti Park","DMZ","Petronas Towers","Batu Caves","Marina Bay Sands","Gardens by the Bay",
-    "Sentosa","Sultan Ahmed mecset","Kapalı bazár","Hagia Sophia","Topkapi palota","Blue Mosque",
-    "Epheszosz","Pamukkale","Cappadocia","Göreme","Istanbul óváros","Bosphorus híd",
+    "Fuji hegy","Kiyosumi kert","Osaka vár","Sultan Ahmed mecset","Kapalı bazár","Hagia Sophia","Topkapi palota","Kék mecset",
+    "Kappadókia","Göreme","Bosphorus híd",
     "Sharm el-Sheikh","Gízai piramisok","Kairói múzeum","Luxor","Aswan","Abu Simbel",
-    "Taj Mahal","Jaipur palota","Hawa Mahal","Agra","Golden Temple","Varanasi","Khajuraho",
-    "Himeji kastély","Fushimi Inari","Kinkaku-ji","Gion","Arashiyama bambuszliget",
-    "Mount Kilimanjaro","Serengeti Nemzeti Park","Ngorongoro kráter","Victoria Falls","Table Mountain",
-    "Robben-sziget","Káprázatos Szahara","Marokkói bazár","Casablanca","Marrakech medina","Essaouira"];
-
+    "Taj Mahal","Jaipur palota","Arany templom",
+    "Kilimandzsáró","Serengeti Nemzeti Park","Ngorongoro kráter","Table Mountain",
+    "Robben-sziget","Szahara","Marokkói bazár","Casablanca","Essaouira"];
 //---------------------------------------------------------------------------------------------------
-
-const greatpeople = [  "Nagy Sándor","Julius Caesar","Augustus","Néró","Traianus","Konstantin",
-  "Attila","Dzsingisz Kán","IV. Béla","Mátyás király","Oroszlánszívű Richárd",
-  "Fülöp király","VIII. Henrik","I. Erzsébet","Napóleon","XVI. Lajos",
-  "Marie Antoinette","George Washington","Abraham Lincoln","Benjamin Franklin",
-  "Thomas Jefferson","Theodore Roosevelt","Franklin D. Roosevelt","Winston Churchill",
-  "Joseph Stalin","Lenin","Karl Marx","Hitler","Mussolini","Mao Ce-tung",
-  "Ho Si Minh","Nelson Mandela","Gandhi","Indira Gandhi","X. Pius pápa","II. János Pál pápa",
-  "XVI. Benedek pápa","Angela Merkel","Charles de Gaulle","Simón Bolívar",
-  "Che Guevara","Castro","Pol Pot","Kim Ir Szen","Kim Dzsongil","Kim Dzsongun",
-  "Arisztotelész","Platón","Szókratész","Galilei","Newton","Einstein",
-  "Marie Curie","Nikola Tesla","Leonardo da Vinci","Michelangelo","Rembrandt",
-  "Van Gogh","Picasso","Mozart","Beethoven","Bach","Liszt Ferenc",
-  "Chopin","Tolsztoj","Dosztojevszkij","Shakespeare","Goethe","Homer"];
-
+const greatpeople = ["Nagy Sándor","Julius Caesar","Augustus","Néró","Traianus","Konstantin",
+    "Attila","Dzsingisz Kán","IV. Béla","Mátyás király","Oroszlánszívű Richárd",
+    "Fülöp király","VIII. Henrik","I. Erzsébet","Napóleon","XVI. Lajos",
+    "Marie Antoinette","George Washington","Abraham Lincoln","Benjamin Franklin",
+    "Thomas Jefferson","Theodore Roosevelt","Franklin D. Roosevelt","Winston Churchill",
+    "Joszif Sztálin","Lenin","Marx Károly","Hitler","Mussolini","Mao Ce-tung",
+    "Ho Si Minh","Nelson Mandela","Mahatma Gandhi","Indira Gandhi","X. Pius pápa",
+    "II. János Pál pápa","XVI. Benedek pápa","Angela Merkel","Charles de Gaulle",
+    "Simón Bolívar","Che Guevara","Fidel Castro","Pol Pot","Kim Ir Szen","Kim Dzsongil","Kim Dzsongun",
+    "Arisztotelész","Platón","Szókratész","Galilei","Newton","Einstein",
+    "Marie Curie","Nikola Tesla","Leonardo da Vinci","Michelangelo","Rembrandt",
+    "Van Gogh","Picasso","Mozart","Beethoven","Bach","Liszt Ferenc",
+    "Chopin","Tolsztoj","Dosztojevszkij","Shakespeare","Goethe","Homérosz",
+    "Salamon király","Nagy Károly","Justinianus császár","I. Szent István",
+    "II. Rákóczi Ferenc","Hunyadi János","Zrínyi Miklós","Bethlen Gábor",
+    "Kolumbusz Kristóf","Amerigo Vespucci","Marco Polo","Vasco da Gama","Magellán",
+    "Amundsen","Cook kapitány","Tutankhamon","II. Ramszesz","Cleopatra",
+    "Szulejmán szultán","Atatürk","Sándor cár","Nagy Katalin",
+    "I. Péter cár","Nagyezsda Krupszkaja","Florence Nightingale",
+    "Jane Austen","Mary Shelley","Frida Kahlo","Sigmund Freud",
+    "Charles Darwin","James Watt","Edison","Wright fivérek","Alexander Graham Bell",
+    "Hannibál Barkasz","Scipio Africanus","Szun Ce","Csao Csao","Tokugawa Iejaszu",
+    "Oda Nobunaga","Toyotomi Hidejosi","Minamoto no Joritomo","William Wallace","Robert the Bruce",
+    "Jan Zizka","Oliver Cromwell","Jeanne d’Arc","Jean Lafitte","Simón Bolívar",
+    "José de San Martín","Emiliano Zapata","Pancho Villa","Toussaint Louverture","Gavrilo Princip",
+    "Georgij Zsukov","Erwin Rommel","Bernard Montgomery","Dwight D. Eisenhower","Douglas MacArthur",
+    "George S. Patton","Horatio Nelson","Arthur Wellesley (Wellington hercege)","Francisco Franco","Subutai"];
 //---------------------------------------------------------------------------------------------------
-
 const myth = ["Zeusz","Héra","Poszeidón","Athéné","Apollón","Artemisz","Aresz","Hefaisztosz","Hermész","Afrodité",
     "Hádész","Dionüszosz","Krónosz","Gaia","Jupiter","Juno","Neptunusz","Mars","Minerva","Venus",
     "Vulcanus","Mercurius","Odin","Thor","Loki","Freya","Baldur","Tyr","Heimdall","Frigg",
     "Valhalla","Mjölnir","Yggdrasil","Ra","Ízisz","Ozirisz","Hórusz","Anubisz","Bastet","Sekhmet",
     "Cerberus","Minotaurusz","Kentaur","Szatír","Medúza","Hydra","Szirén","Chiméra","Pegazus","Főnix",
-    "Szkülla","Kharübdisz","Labirintus","Mount Olympus","Tartarusz","Elysium","Aranygyapjú",
+    "Szkülla","Kharübdisz","Labirintus","Olympus","Tartarusz","Elysium","Aranygyapjú",
     "Argonauták","Pandóra szelencéje","Excalibur","Avalon","Arthur király","Merlin","Camelot",
     "Sir Lancelot","Guinevere","Mordred","Pan","Nike","Nemesis","Thanatos","Hypnos","Hippogriff",
-    "Hippokampusz","Tiamat","Gilgames","Ishtar","Marduk","Utnapishtim","Anu"];
-
+    "Hippokampusz","Tiamat","Gilgames","Ishtar","Marduk","Utnapishtim","Anu",
+    "Achilleusz","Odüsszeusz","Herkules","Perseusz","Theseus","Jason",
+    "Medusa fej","Gorgók","Sfinx","Griff","Ceridwen","Morrigan",
+    "Dagda","Cú Chulainn","Fafnir","Fenrir","Níðhöggr","Hel",
+    "Jörmungandr","Surtr","Amaterasu","Susanoo","Tsukuyomi","Raijin",
+    "Indra","Vishnu","Shiva","Káli","Garuda","Hanuman"];
 //---------------------------------------------------------------------------------------------------
-
 const what = ["infláció","defláció","szubjektív","objektív","kompetencia","szinergia","szkepticizmus",
     "probléma","analízis","szabályozás","inkasszó","okkupáció","faktor","hipotézis",
     "paradigma","szociális","pszeudonim","metafora","szimptóma","diagnózis","terápia",
@@ -573,47 +539,51 @@ const what = ["infláció","defláció","szubjektív","objektív","kompetencia",
     "totalitárius","országgyűlés","konferencia","protocol","analóg","digitális","szenzáció",
     "szubjektivitás","objektivitás","perspektíva","szituáció","verifikáció","kritérium",
     "kontroll","adaptáció","interpretáció","implementáció","infrastruktúra","koalíció",
-    "migráció","szabvány","szakértő","referencia","szindróma"];
-
+    "migráció","szabvány","referencia","szindróma"];
 //---------------------------------------------------------------------------------------------------
-
 const events = ["Karácsony","Újév","Húsvét","Nagypéntek","Húsvét hétfő","Halloween","Mindenszentek",
     "Október 23","Március 15","Szent Patrik nap","Kínai újév","Hanuka","Ramadán","Diwali",
     "Hanami (cseresznyefa virágzás)","Oktoberfest","Thanksgiving","Függetlenség napja (USA)",
-    "Függetlenség napja (Magyarország)","Vízkereszt","Szent Miklós nap","Bálint nap","Anyák napja",
-    "Apák napja","Farsang","Mikulás","Advent első vasárnapja","Advent második vasárnapja",
-    "Advent harmadik vasárnapja","Advent negyedik vasárnapja","Pünkösd","Máriák napja",
-    "Szent György nap","Mikulás napja","Búcsú","Márton nap","Húsvéti locsolkodás","Bábos nap",
-    "Föld napja","Víz világnapja","Madarak és fák napja","Színház világnapja","Tánc világnapja",
+    "Vízkereszt","Szent Miklós nap","Valentin nap","Anyák napja","Apák napja","Farsang",
+    "Advent","Pünkösd","Föld napja","Víz világnapja","Madarak és fák napja","Színház világnapja",
     "Foci világbajnokság","Olimpia","Eurovíziós Dalfesztivál","Szüreti fesztivál","Borfesztivál",
-    "Szent Iván éj","Nyári napforduló","Téli napforduló","Szent András nap","Szent Márton nap",
-    "Családi nap","Egészség világnapja","Könyv világnapja","Múzeumok éjszakája","Színházi fesztivál",
-    "Karnevál","Maszkabál","Tavaszi napéjegyenlőség","Őszi napéjegyenlőség","Halloween party",
-    "Húsvéti tojáskeresés","Szent László nap","Szent István nap","Új kenyér ünnepe"];
-
+    "Szent Iván éj","Nyári napforduló","Téli napforduló","Családi nap","Egészség világnapja",
+    "Könyv világnapja","Múzeumok éjszakája","Karnevál","Tavaszi napéjegyenlőség","Őszi napéjegyenlőség",
+    "Húsvéti tojáskeresés","Szent István nap","Új kenyér ünnepe",
+    "Pamplonai bikafuttatás","Rio karnevál","Velencei karnevál","Mardi Gras (New Orleans)",
+    "Cinco de Mayo","Piñata (mexikói hagyomány)","Día de los Muertos (Halottak napja, Mexikó)",
+    "La Tomatina (paradicsomdobálás, Spanyolország)","Holi fesztivál (India, színek ünnepe)",
+    "Burning Man (Nevada, USA)","Coachella fesztivál","Glastonbury fesztivál","San Fermín ünnep",
+    "Kanamara Matsuri (Japán, „acél fallosz” fesztivál)","Songkran (thai vízi fesztivál)",
+    "Obon fesztivál (Japán)","Carnaval de Barranquilla (Kolumbia)","Inti Raymi (Nap ünnepe, Peru)",
+    "Juhannus (Finnország midsummer)","Bastille nap (Franciaország, július 14.)",
+    "Guy Fawkes éj (Anglia, november 5.)","Hogmanay (Skócia újév)","Ganesh Chaturthi (India)",
+    "Kwanzaa","Eid al-Fitr (Ramadán vége)","Eid al-Adha (Áldozati ünnep)",
+    "Nowruz (perzsa újév)","Harvest Festival (Kína, holdünnep)","Valborg (Svédország tavaszköszöntő)",
+    "Loi Krathong (Thaiföld, lámpás fesztivál)"];
 //-------------------------------------------------------------------------------------------------
-
 const addictions = ["Jack Daniels","Lucky Strike","Pálinka","Whiskey","Vodka","Rum","Gin","Cognac","Sör","Borkóstolás",
     "Félkarú rabló","Black Jack","Rulett","Poker","Kártyázás","Lottó","Szerencsejáték","Koktélok","Bár",
-    "Vibrátor","Misszionárius","Szexjátékok","Pornó","Strip klub","Erotikus filmek","Kokain","Marihuána",
-    "Dohányzás","Cigaretta","Szivar","E-cigaretta","Füves cigi","Hash","Energiaital","Koffein","Kávé",
-    "Red Bull","Fekete tea","Játékfüggőség","Mobiljáték","Online casino","Szerencsejáték app","Alkoholizmus",
-    "Italozás","Piálás","Sörözés","Kocsma","Buli","Fesztivál","Részegség","Italozós este","Betyárkodás",
-    "Csavargás","Éjszakai élet","Bulizás","Diszkó","Szórakozóhely","Napozás (mellékhatásokkal)","Szolárium",
-    "Shopoholizmus","Online vásárlás","Fogyasztói mánia","Gyorsétterem","Csipsz","Üdítő","Édesség","Csokoládé",
-    "Ételkényeztetés","Netflix binge","Szelfizés","Instagram","TikTok","YouTube","Videójáték","FPS játék",
-    "FPS lövöldözés","MMORPG","Szabadidő eltékozlás","Hobbyfüggőség","Sportfüggőség","Extreme sportok","Autóverseny",
-    "Motorozás","Drift","Kávészünet","Dohányzás közben kávé","Éjszakai túrázás"]
+    "Vibrátor","Misszionárius","Pornó","Strip klub","Kokain","Marihuána",
+    "Dohányzás","Cigaretta","Szivar","E-cigaretta","Füves cigi","Hash","Rush","Energiaital",
+    "Red Bull","Játékfüggőség","Online casino","Kocsma","Buli","Fesztivál","Részegség","Italozós este","Betyárkodás",
+    "Csavargás","Éjszakai élet","Bulizás","Diszkó",
+    "Shopoholizmus","Online vásárlás","Gyorsétterem","Csokoládé",
+    "Netflix binge","Instagram","TikTok","Videójáték",
+    "FPS lövöldözés","MMORPG","Extreme sportok","Autóverseny",
+    "Motorozás","Drift","Dohányzás közben kávé",
+    "Másnaposság","Rossz pickup line","Exnek írogatás éjjel","Karaoke","Csókolózás idegennel","Éjjeli kajarendelés","Kebab hajnalban",
+    "McDrive 3-kor","Csocsó a kocsmában","Darts verseny részegen","Bealvás a klubbban",
+    "Bealvás taxiban","Elveszett telefon","Részeg hívás anyunak","Selfie részegen",
+    "Bulikép csoportba","Csínytevés","Haver elhagyása buliban","Fellépés a színpadra",
+    "Sörpong","Flip cup játék","Ivós társasjáték","Táncpárbaj",
+    "Lánybúcsú","Legénybúcsú","Csíny a szállodában","Éjjeli skinny dipping"];
 
-clubs, animals, f1, cars, dogs, locals, items, heroes, cities, series, games, beauty, movies, stars, countries, fairytails,
-brands, greatpeople, greatplaces, myth, what, events, addictions
-
-const topics = {};
+var topics = {};
 topics["clubs"] = [...clubs];
 topics["animals"] = [...animals];
 topics["f1"] = [...f1];
 topics["cars"] = [...cars];
-topics["dogs"] = [...dogs];
 topics["locals"] = [...locals];
 topics["heroes"] = [...heroes];
 topics["items"] = [...items];
