@@ -38,16 +38,10 @@ div::-webkit-scrollbar {
 #alertCorrect{
     width: 100%;
     height: 100%;
-    background: springgreen;
+    background: #7CFC00;
     display: none;
-    justify-content: center;
-    align-items: center;
     z-index: 999;
-}
-
-#alertCorrectText{
-    font-size: 86px;
-    z-index: 9999;
+    opacity: 0.85;
 }
 
 #alertPass{
@@ -55,15 +49,10 @@ div::-webkit-scrollbar {
     height: 100%;
     background: #DC143C;
     display: none;
-    justify-content: center;
-    align-items: center;
     z-index: 999;
+    opacity: 0.85;
 }
 
-#alertPassText{
-    font-size: 86px;
-    z-index: 9999;
-}
 
 
 
@@ -157,8 +146,13 @@ div::-webkit-scrollbar {
     font-size: 36px;
 }
 #task{
-    font-size: 78px;
-    margin-top: 70px;
+    height: 100%;
+    width: 100%;
+    font-size: 62px;
+    margin-top: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 #endPage{
