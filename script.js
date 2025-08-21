@@ -19,6 +19,10 @@ function openMenuCloseStart() {
 }
 
 function openEndCloseGame() {
+    stopCountdownSound();
+    const playedTasksElement = document.getElementById("playedTasks");
+    let temp = playedTasksElement.textContent.concat("\n🥰  ",playDeck[currentTask]);
+    playedTasksElement.textContent = temp;
     document.getElementById("gamePage").style.display = "none";
     document.getElementById("endPage").style.display = "flex";
     clearInterval(interval);
@@ -168,7 +172,7 @@ function openGameCloseMenu(topic) {
       if (timer == 9) {
         do{
         playCountdownSound();
-        }while(timer <= 9 && timer < 0 && audioCountdown.currentTime == 0);
+        }while(timer <= 9 && timer > 0 && audioCountdown.currentTime == 0);
         }
 
       if (timer <= 0) {
@@ -185,11 +189,9 @@ if (window.DeviceOrientationEvent) {
 
     if (gameOn && window.getComputedStyle(document.getElementById("gamePage")).display == "flex") {
         if (gamma < 45 && gamma > 0) {  // jobbra dől (pl. előre)
-            score++;
             itIsACorrect();
             gameOn = false; // várjuk vissza a középállást
         } else if (gamma > -45 && gamma < 0) { // balra dől (pl. hátra)
-            score--;
             itIsAPass();
            gameOn = false;
         }
@@ -205,6 +207,7 @@ if (window.DeviceOrientationEvent) {
 } else {
     alert("A készülék nem támogatja a giroszkópot.");
     }
+
 
 const clubs = ["Real Madrid","Barcelona","Bilbao","Sevilla","Atlético Madrid","West Ham","Tottenham","Manchester United","Liverpool",
   "Chelsea","Arsenal","Manchester City","Hoffenheim","Union Berlin","Freiburg","Mainz","Leverkusen","Bayern München","Borussia Dortmund",
@@ -602,3 +605,4 @@ topics["myth"] = [...myth];
 topics["what"] = [...what];
 topics["events"] = [...events];
 topics["addictions"] = [...addictions];
+
