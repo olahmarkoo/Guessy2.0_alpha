@@ -170,10 +170,8 @@ function openGameCloseMenu(topic) {
     countdownElement.textContent = timer;
 
       if (timer == 9) {
-        do{
         playCountdownSound();
-        }while(timer <= 9 && timer < 0 && audioCountdown.currentTime == 0);
-        }
+      }
 
       if (timer <= 0) {
         openEndCloseGame();
@@ -687,3 +685,4 @@ topics["addictions"] = [...addictions];
 topics["dates"] = [...dates];
 topics["sayings"] = [...sayings];
 topics["profs"] = [...profs];
+
