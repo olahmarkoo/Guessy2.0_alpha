@@ -1,5 +1,5 @@
 let interval = null;
-let timer = 15;
+let timer = 123;
 let copy = [];
 let playDeck = [];
 let currentTask = -1;
@@ -147,7 +147,7 @@ function openGameCloseMenu(topic) {
     playDeck = shuffle([...topics[topic]]);
     currentTask = -1;
     playStartSound();
-    timer = 15;
+    timer = 123;
     getNewTask();
 
     const countdownElement = document.getElementById("countdown");
@@ -687,3 +687,4 @@ topics["addictions"] = [...addictions];
 topics["dates"] = [...dates];
 topics["sayings"] = [...sayings];
 topics["profs"] = [...profs];
+
