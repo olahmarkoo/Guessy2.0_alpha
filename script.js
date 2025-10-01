@@ -19,8 +19,7 @@ function openMenuCloseStart() {
 }
 
 function openEndCloseGame() {
-    audioCountdown.pause();
-    audioCountdown.currentTime = 0;
+    stopCountdownSound();
     const playedTasksElement = document.getElementById("playedTasks");
     let temp = playedTasksElement.textContent.concat("\n🥰  ",playDeck[currentTask]);
     playedTasksElement.textContent = temp;
@@ -92,54 +91,14 @@ function getNewTask() {
     taskElement.textContent = playDeck[currentTask];
 }
 
-function countdownCounter(t){
-    switch(t) {
-        case 9:
-            audioCountdown.pause();
-            audioCountdown.currentTime = 0;
-            audioCountdown.play();
-        break;
-        case 8:
-            audioCountdown.pause();
-            audioCountdown.currentTime = 1;
-            audioCountdown.play();
-        break;
-        case 7:
-            audioCountdown.pause();
-            audioCountdown.currentTime = 2;
-            audioCountdown.play();
-        break;
-        case 6:
-            audioCountdown.pause();
-            audioCountdown.currentTime = 3;
-            audioCountdown.play();
-        break;
-        case 5:
-            audioCountdown.pause();
-            audioCountdown.currentTime = 4;
-            audioCountdown.play();
-        break;
-        case 4:
-            audioCountdown.pause();
-            audioCountdown.currentTime = 5;
-            audioCountdown.play();
-        break;
-        case 3:
-            audioCountdown.pause();
-            audioCountdown.currentTime = 6;
-            audioCountdown.play();
-        break;
-        case 2:
-            audioCountdown.pause();
-            audioCountdown.currentTime = 7;
-            audioCountdown.play();
-        break;
-        case 1:
-            audioCountdown.pause();
-            audioCountdown.currentTime = 8;
-            audioCountdown.play();
-        break;
-    }
+function playCountdownSound() {
+    audioCountdown.play();
+}
+
+// Leállítás egy eseményből
+function stopCountdownSound() {
+    audioCountdown.pause();      // megállítja a lejátszást
+    audioCountdown.currentTime = 0; // visszaállítja az elejére
 }
 
 function playStartSound() {
@@ -200,11 +159,7 @@ function openGameCloseMenu(topic) {
     }
 
     interval = setInterval(() => {
-
     timer--;
-
-
-
     if (timer <= 120) {
         document.getElementById("gamePage").style.display = "flex";
         stopStartSound();
@@ -214,23 +169,20 @@ function openGameCloseMenu(topic) {
     document.getElementById("alertPass").style.display = "none";
     countdownElement.textContent = timer;
 
-    if (1 <= timer <= 9) {
-        countdownCounter(timer);
-    } else {
-        audioCountdown.pause();
-        audioCountdown.currentTime = 0;
-    }
-    
-    if (timer <= 0) {
+      if (timer == 9) {
+        playCountdownSound();
+      }
+
+      if (timer <= 0) {
         openEndCloseGame();
-    }
+        }
     },1000);
 }
 
 if (window.DeviceOrientationEvent) {
     window.addEventListener("deviceorientation", (event) => {
     // landscape helyzetben az előre-hátra döntést a gamma adja
-    //document.getElementById("gamma").textContent = event.gamma.toFixed(1);
+    document.getElementById("gamma").textContent = event.gamma.toFixed(1);
     let gamma = event.gamma; // -90 .. +90 között
 
     if (gameOn && window.getComputedStyle(document.getElementById("gamePage")).display == "flex") {
