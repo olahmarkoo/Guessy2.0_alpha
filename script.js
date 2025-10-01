@@ -53,6 +53,9 @@ function itIsAPass() {
     playPassSound();
     timer -= 2;
     getNewTask();
+    if (timer <= 6) {
+        restartCountdownSound();
+    }
 }
 
 function itIsACorrect() {
@@ -191,7 +194,7 @@ function openGameCloseMenu(topic) {
 if (window.DeviceOrientationEvent) {
     window.addEventListener("deviceorientation", (event) => {
     // landscape helyzetben az előre-hátra döntést a gamma adja
-    document.getElementById("gamma").textContent = event.gamma.toFixed(1);
+    //document.getElementById("gamma").textContent = event.gamma.toFixed(1);
     let gamma = event.gamma; // -90 .. +90 között
 
     if (gameOn && window.getComputedStyle(document.getElementById("gamePage")).display == "flex") {
@@ -239,7 +242,7 @@ const greatplaces = ["Eiffel-torony","Louvre","Notre-Dame","Mont Saint-Michel","
     "Canal Grande","Sixtus-kápolna","Cinque Terre","Szent Márk-székesegyház","Taorminai görög színház","Robot teknőkös","Dózse-palota","Akropolisz","Parthenon","Delphi",
     "Szfinx","Piramisok","Luxor templom","Karnak templom","Királyok völgye","Stonehenge",
     "Big Ben","Londoni tower","Buckingham palota","London Eye","Westminsteri apátság",
-    "Tower Bridge","Cambridge","Oxford","Loch Ness","Neuschwanstein kastély","Gyál, Deák Ferenc utca",
+    "Tower Bridge","Cambridge","Oxford","Loch Ness","Neuschwanstein kastély","Gyál Deák Ferenc utca",
     "Brandenburgi kapu","Berlin fal","Reichstag","Sagrada Familia","Park Güell","Gibraltár","Ronda",
     "Casa Batlló","La Pedrera","Alhambra","Mezquita","Károly híd",
     "Hradčany","Wawel","Krakkói piac","Bécsi Stephansdom","Hofburg","Schönbrunn palota",
@@ -308,10 +311,8 @@ const fairytails = ["Hófehérke és a hét törpe","Hamupipőke","Csipkerózsik
     "Horton","Minyonok","Gru","Szamuráj Jack",
     "Hupikék törpikék","Garfield","Scooby-Doo","Flintstone család","Jetson család",
     "SpongyaBob","Ben 10","Danny, a szellemirtó","Avatar: Aang legendája",
-    "Dragon Ball","Pokémon",
-    "Naruto","One Piece","Bogyó és Babóca",
-    "Doktor Bubó","Tévémaci","Kőműves Kelemen","Mátyás király meséi",
-    "Égig érő paszuly"];
+    "Dragon Ball","Pokémon","Naruto","Bogyó és Babóca",
+    "Doktor Bubó","Tévémaci","Kőműves Kelemen","Mátyás király meséi","Égig érő paszuly"];
 //---------------------------------------------------------------------------------------------------
 const brands = ["McDonald's","Starbucks","Nike","Adidas","Puma","Reebok","Rolex","Apple","Microsoft","Intel",
     "Samsung","Sony","Netflix","Amazon","Google","Facebook","Twitter","Coca-Cola","Pepsi","Red Bull",
@@ -437,6 +438,19 @@ const cars = [
 
   // indiai (ismertebb)
   "Tata"];
+//---------------------------------------------------------------------------------------------------
+const heroes = ["Superman","Batman","Wonderwoman","Flash - Villám","Zöld Lámpás",
+  "Zöld Íjász","Shazam","Aquaman","Fekete Kanári","Cyborg","Supergirl",
+  "Batgirl","Robin","Éjjeliőr","Macskanő","Harley Quinn","Joker","Lex Luthor",
+  "Deathstroke","Blackbolt","Kék Bogár","Booster Gold","Tűzvihar","Műanyag Ember","Atom",
+  "Vasember","Hulk","Thor","Fekete Özvegy","Sólyomszem","Doktor Strange","Yelena Belova",
+  "Pókember","Hangya","Fekete Párduc","Amerika Kapitány","Deadpool","X-23","Task master",
+  "Rozsomák","Professor X","Magneto","Jean Grey","Ciklon","Küklopsz","Bestia","Vörösőr",
+  "Vadóc","Gambit","Vízió","Skarlát Boszorkány","Higanyszál","Tél Katonája","Nick Fury",
+  "Sólyom","Csillagúr","Groot","Mordály","Gamora","Drax","Nebula","Mantis","Marvel Kapitány",
+  "Thanos","Loki","Galactus","Venom","Doktor Octopus","Homokember","Zöld Manó","Mysterio","Kingpin",
+  "Fenegyerek","Megtorló","Ezüst Utazó","Ultron","Doctor Doom","Vörös Koponya","Holdlovag","She-Hulk",
+  "Mystique","Jégember","Éjjáró","Colossus","Reed Richards","Sue Storm","Emberi fáklya","A lény","Kang","Dr. Doom"];
 //---------------------------------------------------------------------------------------------------
 const f1 = [
   "Lewis Hamilton","Michael Schumacher","Ayrton Senna","Alain Prost","Sebastian Vettel",
@@ -706,4 +720,3 @@ topics["emotions"] = [...emotions];
 topics["dates"] = [...dates];
 topics["sayings"] = [...sayings];
 topics["profs"] = [...profs];
-
