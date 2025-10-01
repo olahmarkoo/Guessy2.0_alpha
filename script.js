@@ -19,7 +19,8 @@ function openMenuCloseStart() {
 }
 
 function openEndCloseGame() {
-    stopCountdownSound();
+    audioCountdown.pause();
+    audioCountdown.currentTime = 0;
     const playedTasksElement = document.getElementById("playedTasks");
     let temp = playedTasksElement.textContent.concat("\n🥰  ",playDeck[currentTask]);
     playedTasksElement.textContent = temp;
@@ -91,13 +92,54 @@ function getNewTask() {
     taskElement.textContent = playDeck[currentTask];
 }
 
-function playCountdownSound() {
-    audioCountdown.play();
-}
-
-function stopCountdownSound(cTime) {
-    audioCountdown.pause();      // megállítja a lejátszást
-    audioCountdown.currentTime = cTime; // visszaállítja az elejére
+function countdownCounter(t){
+    switch(t) {
+        case 9:
+            audioCountdown.pause();
+            audioCountdown.currentTime = 0;
+            audioCountdown.play();
+        break;
+        case 8:
+            audioCountdown.pause();
+            audioCountdown.currentTime = 1;
+            audioCountdown.play();
+        break;
+        case 7:
+            audioCountdown.pause();
+            audioCountdown.currentTime = 2;
+            audioCountdown.play();
+        break;
+        case 6:
+            audioCountdown.pause();
+            audioCountdown.currentTime = 3;
+            audioCountdown.play();
+        break;
+        case 5:
+            audioCountdown.pause();
+            audioCountdown.currentTime = 4;
+            audioCountdown.play();
+        break;
+        case 4:
+            audioCountdown.pause();
+            audioCountdown.currentTime = 5;
+            audioCountdown.play();
+        break;
+        case 3:
+            audioCountdown.pause();
+            audioCountdown.currentTime = 6;
+            audioCountdown.play();
+        break;
+        case 2:
+            audioCountdown.pause();
+            audioCountdown.currentTime = 7;
+            audioCountdown.play();
+        break;
+        case 1:
+            audioCountdown.pause();
+            audioCountdown.currentTime = 8;
+            audioCountdown.play();
+        break;
+    }
 }
 
 function playStartSound() {
@@ -158,7 +200,11 @@ function openGameCloseMenu(topic) {
     }
 
     interval = setInterval(() => {
+
     timer--;
+
+
+
     if (timer <= 120) {
         document.getElementById("gamePage").style.display = "flex";
         stopStartSound();
@@ -168,50 +214,16 @@ function openGameCloseMenu(topic) {
     document.getElementById("alertPass").style.display = "none";
     countdownElement.textContent = timer;
 
-    switch(timer) {
-        case 9:
-            stopCountdownSound(0);
-            playCountdownSound();
-        break;
-        case 8:
-            stopCountdownSound(1);
-            playCountdownSound();
-        break;
-        case 7:
-            stopCountdownSound(2);
-            playCountdownSound();
-        break;
-        case 6:
-            stopCountdownSound(3);
-            playCountdownSound();
-        break;
-        case 5:
-            stopCountdownSound(4);
-            playCountdownSound();
-        break;
-        case 4:
-            stopCountdownSound(5);
-            playCountdownSound();
-        break;
-        case 3:
-            stopCountdownSound(6);
-            playCountdownSound();
-        break;
-        case 2:
-            stopCountdownSound(7);
-            playCountdownSound();
-        break;
-        case 1:
-            stopCountdownSound(8);
-            playCountdownSound();
-        break;
-    default:
-        stopCountdownSound(0);
+    if (1 <= timer <= 9) {
+        countdownCounter(timer);
+    } else {
+        audioCountdown.pause();
+        audioCountdown.currentTime = 0;
     }
-
+    
     if (timer <= 0) {
         openEndCloseGame();
-        }
+    }
     },1000);
 }
 
