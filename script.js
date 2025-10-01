@@ -441,14 +441,14 @@ const cars = [
 const f1 = [
   "Lewis Hamilton","Michael Schumacher","Ayrton Senna","Alain Prost","Sebastian Vettel",
   "Fernando Alonso","Max Verstappen","Niki Lauda","Jackie Stewart","Juan Manuel Fangio",
-  "Jim Clark","Kimi Raikkonen","Nigel Mansell","Bernie Eccleston"
+  "Jim Clark","Kimi Raikkonen","Nigel Mansell","Bernie Eccleston",
   "Charles Leclerc","Carlos Sainz","Lando Norris","George Russell","Sergio Perez",
   "Circuit de Monaco","Monza","Silverstone","Suzuka","Hungaroring","Imola",
   "Ferrari","Mercedes","McLaren","Red Bull Racing","Williams","Lotus","Renault",
   "Pole pozíció","Box utca","Safety Car","Sárga zászló","Piros zászló","Rajtrács",
   "Intermediate gumi","Esőgumi","Száraz gumi (slick)","Gyors kör","Év újonca","Világbajnoki pont","Dobogó",
   "Kockás zászló","Pezsgős locsolás","Csapatrádió","Kiállási stratégia","Alávágás","Gumitörmelék","Bottoming",
-  "Sereghajtó","Fékerő-eloszlás","Túlkormányzás","DRS","Szabadedzés","Felvezető kör","pályabíró","Időmérő","Futam","Szél árnyék",];
+  "Sereghajtó","Fékerő-eloszlás","Túlkormányzás","DRS","Szabadedzés","Felvezető kör","pályabíró","Időmérő","Futam","Szél árnyék"];
 //---------------------------------------------------------------------------------------------------
 const animals = ["oroszlán","tigris","puma","gepard","jaguár","leopárd","hiéna","farkas","róka","sakál",
     "medve","jegesmedve","panda","koala","víziló","elefánt","zsiráf","orrszarvú","bivaly","szarvas",
@@ -706,3 +706,4 @@ topics["emotions"] = [...emotions];
 topics["dates"] = [...dates];
 topics["sayings"] = [...sayings];
 topics["profs"] = [...profs];
+
