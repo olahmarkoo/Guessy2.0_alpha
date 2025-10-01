@@ -53,9 +53,6 @@ function itIsAPass() {
     playPassSound();
     timer -= 2;
     getNewTask();
-    if (timer <= 6) {
-        restartCountdownSound();
-    }
 }
 
 function itIsACorrect() {
@@ -67,9 +64,6 @@ function itIsACorrect() {
     timer += 4;
     score++;
     getNewTask();
-    if (timer <= 6) {
-        restartCountdownSound();
-    }
 }
 
 function shuffle(arr) {
@@ -101,16 +95,9 @@ function playCountdownSound() {
     audioCountdown.play();
 }
 
-// Leállítás egy eseményből
-function stopCountdownSound() {
+function stopCountdownSound(cTime) {
     audioCountdown.pause();      // megállítja a lejátszást
-    audioCountdown.currentTime = 0; // visszaállítja az elejére
-}
-
-function restartCountdownSound(){
-    audioCountdown.pause();
-    audioCountdown.currentTime = (timer - 9) * -1;
-    playCountdownSound()
+    audioCountdown.currentTime = cTime; // visszaállítja az elejére
 }
 
 function playStartSound() {
@@ -181,11 +168,48 @@ function openGameCloseMenu(topic) {
     document.getElementById("alertPass").style.display = "none";
     countdownElement.textContent = timer;
 
-      if (timer == 9) {
-        playCountdownSound();
-      }
+    switch(timer) {
+        case 9:
+            stopCountdownSound(0);
+            playCountdownSound();
+        break;
+        case 8:
+            stopCountdownSound(1);
+            playCountdownSound();
+        break;
+        case 7:
+            stopCountdownSound(2);
+            playCountdownSound();
+        break;
+        case 6:
+            stopCountdownSound(3);
+            playCountdownSound();
+        break;
+        case 5:
+            stopCountdownSound(4);
+            playCountdownSound();
+        break;
+        case 4:
+            stopCountdownSound(5);
+            playCountdownSound();
+        break;
+        case 3:
+            stopCountdownSound(6);
+            playCountdownSound();
+        break;
+        case 2:
+            stopCountdownSound(7);
+            playCountdownSound();
+        break;
+        case 1:
+            stopCountdownSound(8);
+            playCountdownSound();
+        break;
+    default:
+        stopCountdownSound(0);
+    }
 
-      if (timer <= 0) {
+    if (timer <= 0) {
         openEndCloseGame();
         }
     },1000);
