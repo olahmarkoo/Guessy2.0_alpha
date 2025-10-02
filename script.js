@@ -144,22 +144,22 @@ function openGameCloseMenu(topic) {
         countdownElement.textContent = timer;
 
         if (timer == 10){
-            playSound(audioCountdown);
+            playSound(playSound(audioCountdown));
         }
         if (timer == 7){
-            playSound(audioCountdown);
+            playSound(playSound(audioCountdown));
         }
         if (timer == 5){
-            playSound(audioCountdown);
+            playSound(playSound(audioCountdown));
         }
         if (timer == 3){
-            playSound(audioCountdown);
+            playSound(playSound(audioCountdown));
         }
         if (timer == 2){
-            playSound(audioCountdown);
+            playSound(playSound(audioCountdown));
         }
         if (timer == 1){
-            playSound(audioCountdown);
+            playSound(playSound(audioCountdown));
         }
 
         if (timer <= 0) {
