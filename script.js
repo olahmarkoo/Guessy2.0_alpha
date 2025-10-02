@@ -12,7 +12,7 @@ let audioCountdown = new Audio("sounds/countdown.mp3");
 let audioFinish = new Audio("sounds/finish.mp3");
 let audioStart = new Audio("sounds/start.mp3");
 let audioPass = new Audio("sounds/pass.mp3");
-audioPass.volume = 0.1;
+audioPass.volume = 0.6;
 let audioCorrect = new Audio("sounds/correct.mp3");
 
 const playedTasksElement = document.getElementById("playedTasks");
@@ -701,4 +701,5 @@ topics["emotions"] = [...emotions];
 topics["dates"] = [...dates];
 topics["sayings"] = [...sayings];
 topics["profs"] = [...profs];
+
 
