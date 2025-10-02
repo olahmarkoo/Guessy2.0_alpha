@@ -1,25 +1,32 @@
+//Variables
+
 let interval = null;
-let timer = 123;
+let timer = 123; //123
 let copy = [];
 let playDeck = [];
 let currentTask = -1;
+let score = 0;
+let gameOn = true;
+
 let audioCountdown = new Audio("sounds/countdown.mp3");
+let audioFinish = new Audio("sounds/finish.mp3");
 let audioStart = new Audio("sounds/start.mp3");
 let audioPass = new Audio("sounds/pass.mp3");
 let audioCorrect = new Audio("sounds/correct.mp3");
-let score = 0;
-let gameOn = true;
+
 const playedTasksElement = document.getElementById("playedTasks");
 
-//-----------------------------------------------
+//---------------------------------------------------------------------------------------------------
 
+
+// Navigation
 function openMenuCloseStart() {
     document.getElementById("startPage").style.display = "none";
     document.getElementById("menuPage").style.display = "flex";
 }
 
 function openEndCloseGame() {
-    stopCountdownSound();
+    playSound(audioFinish);
     const playedTasksElement = document.getElementById("playedTasks");
     let temp = playedTasksElement.textContent.concat("\n🥰  ",playDeck[currentTask]);
     playedTasksElement.textContent = temp;
@@ -32,9 +39,9 @@ function openEndCloseGame() {
 }
 
 function openMenuCloseGame() {
+    audioStart.pause();
     document.getElementById("gamePage").style.display = "none";
     document.getElementById("menuPage").style.display = "flex";
-    stopCountdownSound();
     clearInterval(interval);
 }
 
@@ -45,12 +52,21 @@ function openMenuCloseEnd() {
     playedTasksElement.textContent = "Lejárt az idő:";
 }
 
+function toggleFullscreen() {
+  if (!document.fullscreenElement) {
+    document.documentElement.requestFullscreen();
+  } else {
+    document.exitFullscreen();
+  }
+}
+
+//Mechanics
 function itIsAPass() {
     const playedTasksElement = document.getElementById("playedTasks");
     let temp = playedTasksElement.textContent.concat("\n🥲  ",playDeck[currentTask]);
     playedTasksElement.textContent = temp;
     document.getElementById("alertPass").style.display = "flex";
-    playPassSound();
+    playSound(audioPass);
     timer -= 2;
     getNewTask();
 }
@@ -60,7 +76,7 @@ function itIsACorrect() {
     let temp = playedTasksElement.textContent.concat("\n🥰  ",playDeck[currentTask]);
     playedTasksElement.textContent = temp;
     document.getElementById("alertCorrect").style.display = "flex";
-    playCorrectSound();
+    playSound(audioCorrect);
     timer += 4;
     score++;
     getNewTask();
@@ -91,62 +107,20 @@ function getNewTask() {
     taskElement.textContent = playDeck[currentTask];
 }
 
-function playCountdownSound() {
-    audioCountdown.play();
+//Sound
+function playSound(sound){
+    sound.currentTime = 0;
+    sound.play();
 }
 
-// Leállítás egy eseményből
-function stopCountdownSound() {
-    audioCountdown.pause();      // megállítja a lejátszást
-    audioCountdown.currentTime = 0; // visszaállítja az elejére
-}
+//---------------------------------------------------------------------------------------------------
 
-function playStartSound() {
-    audioStart.play();
-}
-
-// Leállítás egy eseményből
-function stopStartSound() {
-    audioStart.pause();      // megállítja a lejátszást
-    audioStart.currentTime = 0; // visszaállítja az elejére
-}
-
-function playPassSound() {
-    audioPass.play();
-}
-
-// Leállítás egy eseményből
-function stopPassSound() {
-    audioPass.pause();      // megállítja a lejátszást
-    audioPass.currentTime = 0; // visszaállítja az elejére
-}
-
-function playCorrectSound() {
-    audioCorrect.play();
-}
-
-// Leállítás egy eseményből
-function stopCorrectSound() {
-    audioCorrect.pause();      // megállítja a lejátszást
-    audioCorrect.currentTime = 0; // visszaállítja az elejére
-}
-
-function toggleFullscreen() {
-  if (!document.fullscreenElement) {
-    document.documentElement.requestFullscreen();
-  } else {
-    document.exitFullscreen();
-  }
-}
-
-//-----------------------------------------------
-
+//Main game
 function openGameCloseMenu(topic) {
     score = 0;
-    //copy = [...topics[topic]];
     playDeck = shuffle([...topics[topic]]);
     currentTask = -1;
-    playStartSound();
+    playSound(audioStart);
     timer = 123;
     getNewTask();
 
@@ -159,30 +133,46 @@ function openGameCloseMenu(topic) {
     }
 
     interval = setInterval(() => {
-    timer--;
-    if (timer <= 120) {
-        document.getElementById("gamePage").style.display = "flex";
-        stopStartSound();
-    }
+        timer--;
 
-    document.getElementById("alertCorrect").style.display = "none";
-    document.getElementById("alertPass").style.display = "none";
-    countdownElement.textContent = timer;
+        if (timer <= 120) {
+            document.getElementById("gamePage").style.display = "flex";
+        }
 
-      if (timer == 9) {
-        playCountdownSound();
-      }
+        document.getElementById("alertCorrect").style.display = "none";
+        document.getElementById("alertPass").style.display = "none";
+        countdownElement.textContent = timer;
 
-      if (timer <= 0) {
-        openEndCloseGame();
+        if (timer == 10){
+            playSound(audioCountdown);
+        }
+        if (timer == 7){
+            playSound(audioCountdown);
+        }
+        if (timer == 5){
+            playSound(audioCountdown);
+        }
+        if (timer == 3){
+            playSound(audioCountdown);
+        }
+        if (timer == 2){
+            playSound(audioCountdown);
+        }
+        if (timer == 1){
+            playSound(audioCountdown);
+        }
+
+        if (timer <= 0) {
+            openEndCloseGame();
         }
     },1000);
 }
 
+//Gyro
 if (window.DeviceOrientationEvent) {
     window.addEventListener("deviceorientation", (event) => {
     // landscape helyzetben az előre-hátra döntést a gamma adja
-    document.getElementById("gamma").textContent = event.gamma.toFixed(1);
+    //document.getElementById("gamma").textContent = event.gamma.toFixed(1);
     let gamma = event.gamma; // -90 .. +90 között
 
     if (gameOn && window.getComputedStyle(document.getElementById("gamePage")).display == "flex") {
@@ -197,8 +187,6 @@ if (window.DeviceOrientationEvent) {
 
         // ha visszatért középre (kb. egyenesben van), újra engedélyezünk számlálást
     if (gamma > 75 || gamma < -75) {
-        stopPassSound();
-        stopCorrectSound();
         gameOn = true;
         }
     });
@@ -206,6 +194,9 @@ if (window.DeviceOrientationEvent) {
     alert("A készülék nem támogatja a giroszkópot.");
     }
 
+//---------------------------------------------------------------------------------------------------
+
+//Topics
 const emotions = [
   "boldogság", "öröm", "megelégedettség", "büszkeség", "nyugalom", "izgatottság",
   "hála", "szeretet", "rajongás", "remény", "bizalom", "megkönnyebbülés",
@@ -678,6 +669,7 @@ const items = ["asztal","szék","ágy","kanapé","lámpa","polc","szekrény","fi
     "vaj","sajt","felvágott","kenyér","zsemle","keksz","csokoládé","cukorka","gyümölcs","alma",
     "banán","narancs","körte","eper","málna","szeder","ribizli","dinnye","sárgadinnye","görögdinnye",
     "sajtreszelő","konyharuha","szivacs","mosogatószer","konyhai mérleg","fakanál","tányéralátét","edényfedő","gyümölcsprés","tortaszeletelő"];
+
 
 
 
