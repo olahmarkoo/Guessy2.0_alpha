@@ -1,7 +1,7 @@
 //Variables
 
 let interval = null;
-let timer = 123; //123
+let timer = 153; //123
 let copy = [];
 let playDeck = [];
 let currentTask = -1;
@@ -122,7 +122,7 @@ function openGameCloseMenu(topic) {
     playDeck = shuffle([...topics[topic]]);
     currentTask = -1;
     playSound(audioStart);
-    timer = 123;
+    timer = 153;
     getNewTask();
 
     const countdownElement = document.getElementById("countdown");
@@ -136,7 +136,7 @@ function openGameCloseMenu(topic) {
     interval = setInterval(() => {
         timer--;
 
-        if (timer <= 120) {
+        if (timer <= 150) {
             document.getElementById("gamePage").style.display = "flex";
         }
 
@@ -701,5 +701,6 @@ topics["emotions"] = [...emotions];
 topics["dates"] = [...dates];
 topics["sayings"] = [...sayings];
 topics["profs"] = [...profs];
+
 
 
