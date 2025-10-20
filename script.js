@@ -1,7 +1,8 @@
 //Variables
 
 let interval = null;
-let timer = 153; //123
+let basicTimer = 150;
+let timer = basicTimer + 3;
 let copy = [];
 let playDeck = [];
 let currentTask = -1;
@@ -108,6 +109,29 @@ function getNewTask() {
     taskElement.textContent = playDeck[currentTask];
 }
 
+function setBasicTimer() {
+    let n = parseInt(document.getElementById("timeButtonValue").innerHTML);
+    //console.log(n);
+    switch(n) {
+        case 90:
+            basicTimer = 120;
+            document.getElementById("timeButtonValue").innerHTML = 120;
+        break;
+        case 120:
+            basicTimer = 150;
+            document.getElementById("timeButtonValue").innerHTML = 150;
+        break;
+        case 150:
+            basicTimer = 180;
+            document.getElementById("timeButtonValue").innerHTML = 180;
+        break;
+        case 180:
+            basicTimer = 90;
+            document.getElementById("timeButtonValue").innerHTML = 90;
+        break;
+    }
+}
+
 //Sound
 function playSound(sound){
     sound.currentTime = 0;
@@ -122,7 +146,7 @@ function openGameCloseMenu(topic) {
     playDeck = shuffle([...topics[topic]]);
     currentTask = -1;
     playSound(audioStart);
-    timer = 153;
+    timer = basicTimer + 3;
     getNewTask();
 
     const countdownElement = document.getElementById("countdown");
@@ -136,7 +160,7 @@ function openGameCloseMenu(topic) {
     interval = setInterval(() => {
         timer--;
 
-        if (timer <= 150) {
+        if (timer <= basicTimer) {
             document.getElementById("gamePage").style.display = "flex";
         }
 
@@ -701,6 +725,3 @@ topics["emotions"] = [...emotions];
 topics["dates"] = [...dates];
 topics["sayings"] = [...sayings];
 topics["profs"] = [...profs];
-
-
-
