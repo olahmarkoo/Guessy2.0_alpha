@@ -69,7 +69,7 @@ function itIsAPass() {
     playedTasksElement.textContent = temp;
     document.getElementById("alertPass").style.display = "flex";
     playSound(audioPass);
-    timer -= 2;
+    //timer -= 2;
     getNewTask();
 }
 
@@ -725,3 +725,4 @@ topics["emotions"] = [...emotions];
 topics["dates"] = [...dates];
 topics["sayings"] = [...sayings];
 topics["profs"] = [...profs];
+
