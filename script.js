@@ -24,7 +24,6 @@ const playedTasksElement = document.getElementById("playedTasks");
 // Navigation
 function openMenuCloseStart() {
     document.getElementById("startPage").style.display = "none";
-    document.getElementById("iphoneButton").style.display = "none";
     document.getElementById("menuPage").style.display = "flex";
 }
 
@@ -726,3 +725,4 @@ topics["emotions"] = [...emotions];
 topics["dates"] = [...dates];
 topics["sayings"] = [...sayings];
 topics["profs"] = [...profs];
+
