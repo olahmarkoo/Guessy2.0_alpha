@@ -23,7 +23,26 @@ const playedTasksElement = document.getElementById("playedTasks");
 
 // Navigation
 function openMenuCloseStart() {
+
+    // --- iOS giroszkóp engedélykérés ---
+    if (typeof DeviceOrientationEvent !== "undefined" && 
+        typeof DeviceOrientationEvent.requestPermission === "function") {
+
+        DeviceOrientationEvent.requestPermission()
+        .then(response => {
+            if (response === "granted") {
+                console.log("Giroszkóp engedélyezve iOS-en.");
+            } else {
+                alert("A giroszkóp használatához engedély szükséges.");
+            }
+        })
+        .catch(err => {
+            console.error("Engedélykérés hiba:", err);
+        });
+    }
+
     document.getElementById("startPage").style.display = "none";
+    document.getElementById("iphoneButton").style.display = "none";
     document.getElementById("menuPage").style.display = "flex";
 }
 
@@ -60,6 +79,14 @@ function toggleFullscreen() {
   } else {
     document.exitFullscreen();
   }
+}
+
+function setIphoneMode(){
+    if (document.getElementById("iphoneButton").style.backgroundColor == "#7CFC00") {
+        document.getElementById("iphoneButton").style.backgroundColor = "#none";
+    } else {
+        document.getElementById("iphoneButton").style.backgroundColor = "#7CFC00";
+    }
 }
 
 //Mechanics
@@ -725,4 +752,3 @@ topics["emotions"] = [...emotions];
 topics["dates"] = [...dates];
 topics["sayings"] = [...sayings];
 topics["profs"] = [...profs];
-
