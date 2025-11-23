@@ -8,6 +8,8 @@ let playDeck = [];
 let currentTask = -1;
 let score = 0;
 let gameOn = true;
+let diff = 0;
+let diffColors =["#7CFC00","#FFA500","#DC143C"];
 
 let audioCountdown = new Audio("sounds/countdown.mp3");
 let audioFinish = new Audio("sounds/finish.mp3");
@@ -130,6 +132,17 @@ function setBasicTimer() {
             document.getElementById("timeButtonValue").innerHTML = 90;
         break;
     }
+}
+
+function setDifficulty() {
+    if (diff == 0 || diff == 1){
+        diff++;
+    }else{
+        diff = 0;
+    }
+    document.getElementById("diffButton").style.backgroundColor = diffColors[diff];
+
+    console.log(diff);
 }
 
 //Sound
@@ -694,6 +707,19 @@ const items = ["asztal","szék","ágy","kanapé","lámpa","polc","szekrény","fi
     "vaj","sajt","felvágott","kenyér","zsemle","keksz","csokoládé","cukorka","gyümölcs","alma",
     "banán","narancs","körte","eper","málna","szeder","ribizli","dinnye","sárgadinnye","görögdinnye",
     "sajtreszelő","konyharuha","szivacs","mosogatószer","konyhai mérleg","fakanál","tányéralátét","edényfedő","gyümölcsprés","tortaszeletelő"];
+//---------------------------------------------------------------------------------------------------
+const verbs = ["enni","inni","ülni","állni","sétálni","futni","ugrani","olvasni","írni","nézni",
+    "hallgatni","mosni","takarítani","főzni","aludni","kelni","mosolyogni","nevetni","sírni","beszélni",
+    "hallani","látni","kapni","adni","venni","eladni","fizetni","nyitni","zárni","tolni","csinálni",
+    "húzni","dobni","fogni","keresni","találni","tanulni","tanítani","vezetni","telefonálni","fotózni",
+    "festeni","rajzolni","építeni","rombolni","segíteni","kérdezni","válaszolni","várni","sietni","pihenni",
+
+    "kalibrálni","vágyakozni","nosztalgiázni","elgondolkodni","megbocsátani","gyötrődni","szorongani","elcsodálkozni","ráébredni","elkövetkezni","megtorpanni",
+    "megkönnyebbülni","elbizonytalanodni","belemélyedni","visszavonulni","kiteljesedni","lemondani","ráhangolódni","elmerülni","kiégni","elpártolni",
+    "elbátortalanodni","elragadtatni","implikálni","konnotálni","rezonálni","artikulálni","megkérdőjelezni","racionalizálni","idealizálni","diszkreditálni",
+    "legitimizálni","internalizálni","externalizálni","szimbolizálni","meditálni","elmélyedni","reflektálni","adaptálódni","integrálni","dezintegrálódni",
+    "polarizálódni","kompromittálni","dehumanizálni","trivializálni","romantizálni","szublimálni","provokálni","manipulálni","idealizálódni","megtestesülni"
+    ]
 
 
 
@@ -725,4 +751,4 @@ topics["emotions"] = [...emotions];
 topics["dates"] = [...dates];
 topics["sayings"] = [...sayings];
 topics["profs"] = [...profs];
-
+topics["verbs"] = [...verbs];
