@@ -1,5 +1,3 @@
-//Variables
-
 let interval = null;
 let basicTimer = 150;
 let timer = basicTimer + 3;
@@ -718,9 +716,39 @@ const verbs = ["enni","inni","ülni","állni","sétálni","futni","ugrani","olva
     "megkönnyebbülni","elbizonytalanodni","belemélyedni","visszavonulni","kiteljesedni","lemondani","ráhangolódni","elmerülni","kiégni","elpártolni",
     "elbátortalanodni","elragadtatni","implikálni","konnotálni","rezonálni","artikulálni","megkérdőjelezni","racionalizálni","idealizálni","diszkreditálni",
     "legitimizálni","internalizálni","externalizálni","szimbolizálni","meditálni","elmélyedni","reflektálni","adaptálódni","integrálni","dezintegrálódni",
-    "polarizálódni","kompromittálni","dehumanizálni","trivializálni","romantizálni","szublimálni","provokálni","manipulálni","idealizálódni","megtestesülni"
-    ]
+    "polarizálódni","kompromittálni","dehumanizálni","trivializálni","romantizálni","szublimálni","provokálni","manipulálni","idealizálódni","megtestesülni"];
+//---------------------------------------------------------------------------------------------------
+const science = [
+    // Csillagászat
+    "Nap","hold","üstökös","teleszkóp",
+    "Föld","Mars","Vénusz","Jupiter","Szaturnusz","Uránusz","Neptunusz","Plútó","fekete lyuk",
+    "csillag","bolygó","galaxis","üstökös","meteorit","űrhajó","távcső","asztronauta","Apollo-11","planetárium","NASA","SpaceX","Farkas Bertalan",
+    "Kapu Tibor","súlytalanság","Tejút","napfogyatkozás","holdfogyatkozás","ár-apály","domborzat","kilövés","Armageddon","Houston",
 
+    //Matek
+    "szám","összeadás","kivonás","szorzás","osztás","törtek","szög","háromszög","kör","négyzet",
+    "kerület számítás","terület számítás","térfogat","Pitagorasz tétel","deriválás","integrálás","exponenciális","analízis","algebra",
+    "koordináta rendszer","hatványozás","római számok","Függvénytábla","arab számok","mértékegység","abakusz","keresztmetszet","nagyszámok törvénye",
+    "képlet gyűjtemény","változó","nevező","egyenlőség","X","Y","négyzetrácsos füzet","statisztika","regresszió","szórás","eloszlás","korreláció",
+
+    //Fizika
+    "energia","erő","tömeg","sebesség","hő","fény","hang","áram","feszültség","ellenállás",
+    "mágnes","nyomás","gyorsulás","súrlódás","pára","gőz","láb","mérföld","csomó","optika",
+    "Newton","Ohm","Watt","Volt","statika","szakító szilárdság","Oppenheimer","Einstein","Pavlov","Teller Ede",
+    "Bell","Edison","Tesla","Arkhimédész","Gábor Dénes","relativitás","kvantummechanika","termodinamika","elektromágnesesség","gravitáció",
+    "atom","foton","neutron","proton","elektron","munka","teljesítmény","impulzus","hullám","mező","téridő","entropia","fagypont","szublimáció",
+
+    //kémia
+    "Mendelejev","Curie","molekula","bunsen égő","vegyület","elem","reakció","katalizátor","sav","bázis","oxidáció","redukció",
+    "oldat","kristály","ion","pH","energia","elektronhéj","periódusos rendszer","csoport","radioaktivitás",
+    "Hidrogén","Hélium","Szén","Oxigén","Nitrogén","Neon","Ólom","Magnézium","Szelén","Uránium","Vas","Réz","Arany","diffúzió","rendszám",
+    "oxidáció","redukció","ionkötés","kovalens kötés",
+
+    //Biológia
+    "Darwin","Semmelweis","Szentgyörgyi","Karikó Katalin","párzás","szaporodás","ovuláció","psa",
+    "sejt","dns","mrns","fehérje","enzim","hormon","szövet","szerv",
+    "evolúció","mutáció","adaptáció","homeosztázis","faj","ökoszisztéma","bioszféra","anyagcsere","légzés","fotoszintézis","papucsállatka"];
+//---------------------------------------------------------------------------------------------------
 
 
 
@@ -752,3 +780,4 @@ topics["dates"] = [...dates];
 topics["sayings"] = [...sayings];
 topics["profs"] = [...profs];
 topics["verbs"] = [...verbs];
+topics["science"] = [...science];
