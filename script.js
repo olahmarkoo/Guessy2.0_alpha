@@ -257,7 +257,7 @@ const greatplaces = ["Eiffel-torony","Louvre","Notre-Dame","Mont Saint-Michel","
     "Canal Grande","Sixtus-kápolna","Cinque Terre","Szent Márk-székesegyház","Taorminai görög színház","Robot teknőkös","Dózse-palota","Akropolisz","Parthenon","Delphi",
     "Szfinx","Piramisok","Luxor templom","Karnak templom","Királyok völgye","Stonehenge",
     "Big Ben","Londoni tower","Buckingham palota","London Eye","Westminsteri apátság",
-    "Tower Bridge","Cambridge","Oxford","Loch Ness","Neuschwanstein kastély","Gyál Deák Ferenc utca",
+    "Tower Bridge","Cambridge","Oxford","Loch Ness","Neuschwanstein kastély",
     "Brandenburgi kapu","Berlin fal","Reichstag","Sagrada Familia","Park Güell","Gibraltár","Ronda",
     "Casa Batlló","La Pedrera","Alhambra","Mezquita","Károly híd",
     "Hradčany","Wawel","Krakkói piac","Bécsi Stephansdom","Hofburg","Schönbrunn palota",
@@ -464,7 +464,7 @@ const heroes = ["Superman","Batman","Wonderwoman","Flash - Villám","Zöld Lámp
   "Vadóc","Gambit","Vízió","Skarlát Boszorkány","Higanyszál","Tél Katonája","Nick Fury",
   "Sólyom","Csillagúr","Groot","Mordály","Gamora","Drax","Nebula","Mantis","Marvel Kapitány",
   "Thanos","Loki","Galactus","Venom","Doktor Octopus","Homokember","Zöld Manó","Mysterio","Kingpin",
-  "Fenegyerek","Megtorló","Ezüst Utazó","Ultron","Doctor Doom","Vörös Koponya","Holdlovag","She-Hulk",
+  "Fenegyerek","Megtorló","Ezüst Utazó","Ultron","Vörös Koponya","Holdlovag","She-Hulk",
   "Mystique","Jégember","Éjjáró","Colossus","Reed Richards","Sue Storm","Emberi fáklya","A lény","Kang","Dr. Doom"];
 //---------------------------------------------------------------------------------------------------
 const f1 = [
@@ -781,3 +781,4 @@ topics["sayings"] = [...sayings];
 topics["profs"] = [...profs];
 topics["verbs"] = [...verbs];
 topics["science"] = [...science];
+
