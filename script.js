@@ -252,13 +252,13 @@ const emotions = [
   "szorultságérzet", "megvetés", "önbizalomhiány", "önbizalom",
   "önfeladás", "önfeledtség", "alázat", "önvád", "önigazolás"];
 //---------------------------------------------------------------------------------------------------
-const xmas = [ "Karácsony", "Szenteste", "Advent", "Betlehem", "Jászol", "Kisjézus", "Angyal", "Angyalszárny", "Csillag", "Betlehemi csillag", 
+const xmas = ["Karácsony", "Szenteste", "Advent", "Betlehem", "Jászol", "Kisjézus", "Angyal", "Angyalszárny", "Csillag", "Betlehemi csillag", 
               "Karácsonyfa", "Fenyőfa", "Lucfenyő", "Toboz", "Fagyöngy", "Gyertya", "Gyertyafény", "Fényfüzér", "Égősor", "Dísz", "Gömbdísz", "Csengettyű", "Harang", 
               "Csengő", "Ajándék", "Ajándékozás", "Csomagolás", "Szalag", "Masni", "Papírdísz", "Mézeskalács", "Mézeskalács ház", "Bejgli", "Diós bejgli",
               "Mákos bejgli", "Halászlé", "Töltött káposzta", "Forralt bor", "Puncs", "Fahéj", "Szegfűszeg", "Narancs", "Mandarin", "Alma", "Dió", "Mogyoró", "Hó", "Hóesés", 
               "Hópelyhek", "Hóember", "Szánkó", "Száncsengő", "Rénszarvas", "Télapó", "Mikulás", "Grincs", "Manók", "Manó", "Kandalló", "Kályha", "Meleg takaró", "Sál", "Sapka", 
               "Kesztyű", "Téli este", "Család", "Szeretet", "Béke", "Öröm", "Ünnep", "Ünnepi vacsora", "Karácsonyi zene", "Karácsonyi dal", "Csendes éj", "Karácsonyi illat", "Havazás",
-              "Téli csoda" ];
+              "Téli csoda"];
 const greatplaces = ["Eiffel-torony","Louvre","Notre-Dame","Mont Saint-Michel","Versailles","Szent Szív-bazilika (Sacré-Cœur)",
     "Colosseum","Római Fórum","Pantheon","Trevi-kút","Pisa tornya","Vatikán","Szent Péter-bazilika",
     "Canal Grande","Sixtus-kápolna","Cinque Terre","Szent Márk-székesegyház","Taorminai görög színház","Robot teknőkös","Dózse-palota","Akropolisz","Parthenon","Delphi",
@@ -789,6 +789,7 @@ topics["sayings"] = [...sayings];
 topics["profs"] = [...profs];
 topics["verbs"] = [...verbs];
 topics["science"] = [...science];
+
 
 
 
