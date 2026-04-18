@@ -252,20 +252,12 @@ const emotions = [
   "szorultságérzet", "megvetés", "önbizalomhiány", "önbizalom",
   "önfeladás", "önfeledtség", "alázat", "önvád", "önigazolás"];
 //---------------------------------------------------------------------------------------------------
-const xmas = [
-  "Karácsony", "Szenteste", "Advent", "Betlehem", "Jászol", "Kisjézus", "Angyal", "Angyalszárny", "Csillag", "Betlehemi csillag", 
-  "Karácsonyfa", "Normannfenyő", "Lucfenyő", "Toboz", "Fagyöngy", "Gyertya", "Fényfüzér", "Égősor", "Csúcs dísz", "Hógömb", "Csengettyű", "Harang", 
-  "Csengő", "Ajándék", "Ajándékozás", "Csomagolás", "Szalag", "Masni", "Papírdísz", "Mézeskalács", "Bejgli",
-  "Halászlé", "Töltött káposzta", "Forralt bor", "Puncs", "Fahéj", "Szegfűszeg", "Narancs", "Mandarin", "Alma", "Dió", "Mogyoró", "Hó",
-  "Hópelyhek", "Hóember", "Szánkó", "Száncsengő", "Rénszarvas", "Télapó", "Mikulás", "Grincs", "Manó", "Kandalló", "Kályha", "Meleg takaró", "Sál", "Sapka", 
-  "Kesztyű", "Téli este", "Család", "Szeretet", "Béke", "Öröm", "Ünnep", "Vacsora", "Karácsonyi dal", "Csendes éj",
-  "Csoda"];
 const greatplaces = ["Eiffel-torony","Louvre","Notre-Dame","Mont Saint-Michel","Versailles","Szent Szív-bazilika (Sacré-Cœur)",
     "Colosseum","Római Fórum","Pantheon","Trevi-kút","Pisa tornya","Vatikán","Szent Péter-bazilika",
     "Canal Grande","Sixtus-kápolna","Cinque Terre","Szent Márk-székesegyház","Taorminai görög színház","Robot teknőkös","Dózse-palota","Akropolisz","Parthenon","Delphi",
     "Szfinx","Piramisok","Luxor templom","Karnak templom","Királyok völgye","Stonehenge",
     "Big Ben","Londoni tower","Buckingham palota","London Eye","Westminsteri apátság",
-    "Tower Bridge","Cambridge","Oxford","Loch Ness","Neuschwanstein kastély",
+    "Tower Bridge","Cambridge","Oxford","Loch Ness","Neuschwanstein kastély","Gyál Deák Ferenc utca",
     "Brandenburgi kapu","Berlin fal","Reichstag","Sagrada Familia","Park Güell","Gibraltár","Ronda",
     "Casa Batlló","La Pedrera","Alhambra","Mezquita","Károly híd",
     "Hradčany","Wawel","Krakkói piac","Bécsi Stephansdom","Hofburg","Schönbrunn palota",
@@ -472,7 +464,7 @@ const heroes = ["Superman","Batman","Wonderwoman","Flash - Villám","Zöld Lámp
   "Vadóc","Gambit","Vízió","Skarlát Boszorkány","Higanyszál","Tél Katonája","Nick Fury",
   "Sólyom","Csillagúr","Groot","Mordály","Gamora","Drax","Nebula","Mantis","Marvel Kapitány",
   "Thanos","Loki","Galactus","Venom","Doktor Octopus","Homokember","Zöld Manó","Mysterio","Kingpin",
-  "Fenegyerek","Megtorló","Ezüst Utazó","Ultron","Vörös Koponya","Holdlovag","She-Hulk",
+  "Fenegyerek","Megtorló","Ezüst Utazó","Ultron","Doctor Doom","Vörös Koponya","Holdlovag","She-Hulk",
   "Mystique","Jégember","Éjjáró","Colossus","Reed Richards","Sue Storm","Emberi fáklya","A lény","Kang","Dr. Doom"];
 //---------------------------------------------------------------------------------------------------
 const f1 = [
@@ -486,6 +478,13 @@ const f1 = [
   "Intermediate gumi","Esőgumi","Száraz gumi (slick)","Gyors kör","Év újonca","Világbajnoki pont","Dobogó",
   "Kockás zászló","Pezsgős locsolás","Csapatrádió","Kiállási stratégia","Alávágás","Gumitörmelék","Bottoming",
   "Sereghajtó","Fékerő-eloszlás","Túlkormányzás","DRS","Szabadedzés","Felvezető kör","pályabíró","Időmérő","Futam","Szél árnyék"];
+//---------------------------------------------------------------------------------------------------
+  const hot = [
+  "Jab Jum","Glory hole","Arany zuhany","Ady","Zsömlézés","Sárkány lehellet","Dokkolás","69","Magömlés","Mikro pénisz","Dildó","Quicky szex",
+  "Pulykázás","Helikopter","Olasz-Marokkói","Eprezés","Habcsók","Holland kemence","Oroszlánkirály","Félszemű kalóz","Pókember","Rush",
+  "Síkosító","Kankó","Vérbaj","Gentamicin","Ákosozás","Bukkakke","Dirty Sanches","Vonyító farkas","Kamasutra",
+  "Gésa golyó","Necrofília","Lyuksógor","Kozák kucsma","Tej ostor","Houdini","Pingvin","Mérges sárkány","Medence feltöltés",
+  "Hógolyózás","96"];
 //---------------------------------------------------------------------------------------------------
 const animals = ["oroszlán","tigris","puma","gepard","jaguár","leopárd","hiéna","farkas","róka","sakál",
     "medve","jegesmedve","panda","koala","víziló","elefánt","zsiráf","orrszarvú","bivaly","szarvas",
@@ -762,7 +761,6 @@ const science = [
 
 
 var topics = {};
-topics["xmas"] = [...xmas];
 topics["clubs"] = [...clubs];
 topics["animals"] = [...animals];
 topics["f1"] = [...f1];
@@ -790,9 +788,4 @@ topics["sayings"] = [...sayings];
 topics["profs"] = [...profs];
 topics["verbs"] = [...verbs];
 topics["science"] = [...science];
-
-
-
-
-
-
+topics["hot"] = [...hot];
