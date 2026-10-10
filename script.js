@@ -480,7 +480,7 @@ const f1 = [
   "Sereghajtó","Fékerő-eloszlás","Túlkormányzás","DRS","Szabadedzés","Felvezető kör","pályabíró","Időmérő","Futam","Szél árnyék"];
 //---------------------------------------------------------------------------------------------------
   const hot = [
-  "Jab Jum","Mindzsó","Glory hole","Arany zuhany","Ady","Zsömlézés","Sárkány lehellet","Dokkolás","69","Magömlés","Mikro pénisz","Dildó","Quicky szex",
+  "Jab Jum","Gecivedelő spermaböffentő","Fagyos frici","Mindzsó","Glory hole","Arany zuhany","Ady","Zsömlézés","Sárkány lehellet","Dokkolás","69","Magömlés","Mikro pénisz","Dildó","Quicky szex",
   "Pulykázás","Helikopter","Olasz-Marokkói","Eprezés","Habcsók","Holland kemence","Oroszlánkirály","Félszemű kalóz","Pókember","Rush",
   "Síkosító","Kankó","Vérbaj","Gentamicin","Ákosozás","Bukkakke","Dirty Sanches","Vonyító farkas","Kamasutra",
   "Gésa golyó","Necrofília","Lyuksógor","Kozák kucsma","Tej ostor","Houdini","Pingvin","Mérges sárkány","Medence feltöltés",
