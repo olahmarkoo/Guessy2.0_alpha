@@ -484,7 +484,7 @@ const f1 = [
   "Pulykázás","Helikopter","Olasz-Marokkói","Eprezés","Habcsók","Holland kemence","Oroszlánkirály","Félszemű kalóz","Pókember","Rush",
   "Síkosító","Kankó","Vérbaj","Gentamicin","Ákosozás","Bukkakke","Dirty Sanches","Vonyító farkas","Kamasutra",
   "Gésa golyó","Necrofília","Lyuksógor","Kozák kucsma","Tej ostor","Houdini","Pingvin","Mérges sárkány","Medence feltöltés",
-  "Hógolyózás","96"];
+  "Hógolyózás","96","Gyöngyhalászat","Gecizuhany"];
 //---------------------------------------------------------------------------------------------------
 const animals = ["oroszlán","tigris","puma","gepard","jaguár","leopárd","hiéna","farkas","róka","sakál",
     "medve","jegesmedve","panda","koala","víziló","elefánt","zsiráf","orrszarvú","bivaly","szarvas",
